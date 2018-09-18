@@ -18,7 +18,7 @@ namespace Blog.ApplicationCore.Features.Post.Queries.GetPosts
 
         public async Task<List<PostDto>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
         {
-            var existingPosts = await _postRepository.GetAll();
+            var existingPosts = await _postRepository.GetAll(published: request.Filter.PublishedOnly);
             var postsDto = new List<PostDto>();
 
             foreach (var post in existingPosts)
@@ -42,5 +42,11 @@ namespace Blog.ApplicationCore.Features.Post.Queries.GetPosts
 
     public class GetPostsQuery : IRequest<List<PostDto>>
     {
+        public PostsQueryFilter Filter { get; set; }
+    }
+
+    public class PostsQueryFilter
+    {
+        public bool PublishedOnly { get; set; }
     }
 }

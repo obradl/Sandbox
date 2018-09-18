@@ -35,9 +35,10 @@ namespace Blog.Infrastructure.Data
             return postCollection.InsertOneAsync(post);
         }
 
-        public async Task<List<Post>> GetAll()
+        public async Task<List<Post>> GetAll(bool published)
         {
-            return await _blogContext.Posts.Find(Builders<Post>.Filter.Empty).ToListAsync();
+            return await _blogContext.Posts
+                .Find(Builders<Post>.Filter.Where(d=>d.Published == published)).ToListAsync();
         }
 
         public Task Delete(string id)
