@@ -35,7 +35,7 @@ namespace Blog.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get a single post
+        /// Get a single post by id
         /// </summary>
         /// <param name="id">Post id</param>
         /// <returns></returns>
