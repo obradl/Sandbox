@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blog.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Blog.WebApi.Controllers.CommentsController.Post(Blog.ApplicationCore.Features.Commands.Comment.CreateComment.CreateCommentDto,System.String)">
+            <summary>
+            Create a new comment associated with a post
+            </summary>
+            <param name="comment">Comment</param>
+            <param name="postId">Post id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.WebApi.Controllers.CommentsController.GetCommentsForPost(System.String)">
+            <summary>
+            Get comments for a given post
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.WebApi.Controllers.CommentsController.Delete(System.String)">
+            <summary>
+            Delete a comment
+            </summary>
+            <param name="id">Comment id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.WebApi.Controllers.PostsController.Get">
+            <summary>
+            Get posts
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.WebApi.Controllers.PostsController.GetSingle(System.String)">
+            <summary>
+            Get a single post
+            </summary>
+            <param name="id">Post id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.WebApi.Controllers.PostsController.Publish(System.String)">
+            <summary>
+            Make the post available for public
+            </summary>
+            <param name="id">Post id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.WebApi.Controllers.PostsController.Post(Blog.ApplicationCore.Features.Commands.Post.CreatePost.CreatePostDto)">
+            <summary>
+            Create a new post
+            </summary>
+            <param name="post"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.WebApi.Controllers.PostsController.Delete(System.String)">
+            <summary>
+            Delete a post
+            </summary>
+            <param name="id">Post id</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
