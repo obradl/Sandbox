@@ -1,4 +1,5 @@
-﻿using Blog.Domain.Entities;
+﻿using System.Security.Authentication;
+using Blog.Domain.Entities;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
@@ -11,7 +12,13 @@ namespace Blog.Infrastructure.Data
 
         public BlogContext(IOptions<MongoDbSettings> settings)
         {
-            var client = new MongoClient(settings.Value.ConnectionString);
+            var mongoClientSettings = MongoClientSettings.FromUrl(
+                new MongoUrl(settings.Value.ConnectionString));
+
+            mongoClientSettings.SslSettings =
+                new SslSettings { EnabledSslProtocols = SslProtocols.Tls12 };
+    
+            var client = new MongoClient(mongoClientSettings);
             _database = client.GetDatabase(settings.Value.Database);
 
             var conventionPack = new ConventionPack { new CamelCaseElementNameConvention() };
