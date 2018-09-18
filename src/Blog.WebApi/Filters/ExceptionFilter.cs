@@ -12,11 +12,6 @@ namespace Blog.WebApi.Filters
             {
                 context.Result = new NotFoundObjectResult(ex.Message);
             }
-            else
-            {
-                context.Result = new JsonResult("An error occured");
-                context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            }
         }
     }
 }
