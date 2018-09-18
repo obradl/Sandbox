@@ -30,11 +30,7 @@ namespace Blog.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PostDto>>> Get([FromQuery]bool published = false)
         {
-            var posts = await _mediator.Send(new GetPostsQuery
-            {
-                Filter = new PostsQueryFilter {PublishedOnly = published}
-            });
-
+            var posts = await _mediator.Send(new GetPostsQuery { PublishedOnly = published });
             return Ok(posts);
         }
 
