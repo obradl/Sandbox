@@ -4,7 +4,7 @@ using Blog.ApplicationCore.Common.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Queries.Post.GetSinglePost
+namespace Blog.ApplicationCore.Features.Post.Queries.GetSinglePost
 {
     public class GetSinglePostQueryHandler : IRequestHandler<GetSinglePostQuery, PostDto>
     {

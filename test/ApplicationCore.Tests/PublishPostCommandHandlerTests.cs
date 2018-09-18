@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Blog.ApplicationCore.Features.Commands.Post.PublishPost;
+using Blog.ApplicationCore.Features.Post.Commands.PublishPost;
 using Blog.Domain.Entities;
 using Blog.Infrastructure.Data;
 using Moq;

@@ -6,7 +6,7 @@ using Blog.ApplicationCore.Common.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Commands.Comment.CreateComment
+namespace Blog.ApplicationCore.Features.Comment.Commands.CreateComment
 {
     public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, CommentDto>
     {

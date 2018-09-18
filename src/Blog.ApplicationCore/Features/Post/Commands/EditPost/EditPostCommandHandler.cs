@@ -6,7 +6,7 @@ using Blog.ApplicationCore.Common.PostUtils;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Commands.Post.EditPost
+namespace Blog.ApplicationCore.Features.Post.Commands.EditPost
 {
     public class EditPostCommandHandler : IRequestHandler<EditPostCommand, PostDto>
     {

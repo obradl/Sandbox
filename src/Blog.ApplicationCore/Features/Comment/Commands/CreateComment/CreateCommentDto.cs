@@ -1,4 +1,4 @@
-﻿namespace Blog.ApplicationCore.Features.Commands.Comment.CreateComment
+﻿namespace Blog.ApplicationCore.Features.Comment.Commands.CreateComment
 {
     public class CreateCommentDto
     {

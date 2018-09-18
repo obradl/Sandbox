@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
@@ -7,24 +6,24 @@ using Blog.ApplicationCore.Common.PostUtils;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Commands.Post.PublishPost
+namespace Blog.ApplicationCore.Features.Post.Commands.UnPublishPost
 {
-    public class PublishPostCommandHandler : IRequestHandler<PublishPostCommand, PostDto>
+    public class UnPublishPostCommandHandler : IRequestHandler<UnPublishPostCommand, PostDto>
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
-        public PublishPostCommandHandler(IPostRepository postRepository, IMapper mapper)
+        public UnPublishPostCommandHandler(IPostRepository postRepository, IMapper mapper)
         {
             _postRepository = postRepository;
             _mapper = mapper;
         }
 
-        public async Task<PostDto> Handle(PublishPostCommand request, CancellationToken cancellationToken)
+        public async Task<PostDto> Handle(UnPublishPostCommand request, CancellationToken cancellationToken)
         {        
             var existingPost = await _postRepository.Get(request.PostId);
-            existingPost.Published = true;
-            existingPost.DatePublished = DateTime.Now;
+            existingPost.Published = false;
+            existingPost.DatePublished = null;
 
             await _postRepository.Update(existingPost);
 
@@ -33,7 +32,7 @@ namespace Blog.ApplicationCore.Features.Commands.Post.PublishPost
         }
     }
 
-    public class PublishPostCommand : IPostRequest, IRequest<PostDto>
+    public class UnPublishPostCommand : IPostRequest, IRequest<PostDto>
     {
     }
 }

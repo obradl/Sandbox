@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.Dto;
-using Blog.ApplicationCore.Features.Commands.Comment.CreateComment;
-using Blog.ApplicationCore.Features.Commands.Comment.DeleteComment;
-using Blog.ApplicationCore.Features.Queries.Comment.GetCommentsForPost;
+using Blog.ApplicationCore.Features.Comment.Commands.CreateComment;
+using Blog.ApplicationCore.Features.Comment.Commands.DeleteComment;
+using Blog.ApplicationCore.Features.Comment.Queries.GetCommentsForPost;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

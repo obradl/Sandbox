@@ -7,7 +7,7 @@ using Blog.ApplicationCore.Common.PostUtils;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Queries.Comment.GetCommentsForPost
+namespace Blog.ApplicationCore.Features.Comment.Queries.GetCommentsForPost
 {
     public class GetCommentsForPostQueryHandler : IRequestHandler<GetCommentsForPostQuery, List<CommentDto>>
     {

@@ -5,7 +5,7 @@ using Blog.ApplicationCore.Common.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Queries.Post.GetPosts
+namespace Blog.ApplicationCore.Features.Post.Queries.GetPosts
 {
     public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, List<PostDto>>
     {

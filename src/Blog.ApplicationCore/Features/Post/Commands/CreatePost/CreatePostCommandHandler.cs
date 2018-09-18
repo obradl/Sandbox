@@ -6,7 +6,7 @@ using Blog.ApplicationCore.Common.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Commands.Post.CreatePost
+namespace Blog.ApplicationCore.Features.Post.Commands.CreatePost
 {
     public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, PostDto>
     {

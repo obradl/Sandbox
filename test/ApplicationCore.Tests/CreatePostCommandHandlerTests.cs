@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Blog.ApplicationCore.Features.Commands.Post.CreatePost;
+using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
 using Blog.Domain.Entities;
 using Blog.Infrastructure.Data;
 using Moq;

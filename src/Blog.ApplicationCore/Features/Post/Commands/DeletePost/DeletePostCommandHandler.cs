@@ -4,7 +4,7 @@ using Blog.ApplicationCore.Common.PostUtils;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Commands.Post.DeletePost
+namespace Blog.ApplicationCore.Features.Post.Commands.DeletePost
 {
     public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
     {

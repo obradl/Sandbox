@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.ApplicationCore.Features.Commands.Post.CreatePost;
+using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using MediatR;

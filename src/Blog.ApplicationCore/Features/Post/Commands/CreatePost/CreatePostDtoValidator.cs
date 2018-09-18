@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Blog.ApplicationCore.Features.Commands.Post.CreatePost
+namespace Blog.ApplicationCore.Features.Post.Commands.CreatePost
 {
     public class CreatePostDtoValidator : AbstractValidator<CreatePostCommand>
     {

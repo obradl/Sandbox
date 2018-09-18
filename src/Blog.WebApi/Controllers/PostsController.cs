@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.Dto;
-using Blog.ApplicationCore.Features.Commands.Post.CreatePost;
-using Blog.ApplicationCore.Features.Commands.Post.DeletePost;
-using Blog.ApplicationCore.Features.Commands.Post.EditPost;
-using Blog.ApplicationCore.Features.Commands.Post.PublishPost;
-using Blog.ApplicationCore.Features.Queries.Post.GetPosts;
-using Blog.ApplicationCore.Features.Queries.Post.GetSinglePost;
+using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
+using Blog.ApplicationCore.Features.Post.Commands.DeletePost;
+using Blog.ApplicationCore.Features.Post.Commands.EditPost;
+using Blog.ApplicationCore.Features.Post.Commands.PublishPost;
+using Blog.ApplicationCore.Features.Post.Commands.UnPublishPost;
+using Blog.ApplicationCore.Features.Post.Queries.GetPosts;
+using Blog.ApplicationCore.Features.Post.Queries.GetSinglePost;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,18 @@ namespace Blog.WebApi.Controllers
         public async Task<ActionResult<PostDto>> Publish([FromRoute]string id)
         {
             var publishedPost = await _mediator.Send(new PublishPostCommand {PostId = id });
+            return Ok(publishedPost);
+        }
+
+        /// <summary>
+        /// Make the post unavailable for public
+        /// </summary>
+        /// <param name="id">Post id</param>
+        /// <returns></returns>
+        [HttpPut("{id}/unpublish")]
+        public async Task<ActionResult<PostDto>> UnPublish([FromRoute]string id)
+        {
+            var publishedPost = await _mediator.Send(new UnPublishPostCommand { PostId = id });
             return Ok(publishedPost);
         }
 
