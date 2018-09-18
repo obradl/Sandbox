@@ -1,5 +1,4 @@
-﻿
-using Blog.Domain.Entities;
+﻿using Blog.Domain.Entities;
 using MongoDB.Driver;
 
 namespace Blog.Infrastructure.Data
