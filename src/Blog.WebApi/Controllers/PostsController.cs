@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Features.Commands.Post.CreatePost;
 using Blog.ApplicationCore.Features.Commands.Post.DeletePost;
+using Blog.ApplicationCore.Features.Commands.Post.EditPost;
 using Blog.ApplicationCore.Features.Commands.Post.PublishPost;
 using Blog.ApplicationCore.Features.Queries.Post.GetPosts;
 using Blog.ApplicationCore.Features.Queries.Post.GetSinglePost;
@@ -68,11 +69,24 @@ namespace Blog.WebApi.Controllers
             return CreatedAtRoute("GetSingle", new {createdPost.Id } ,createdPost);
         }
 
-       /// <summary>
-       /// Delete a post
-       /// </summary>
-       /// <param name="id">Post id</param>
-       /// <returns></returns>
+        /// <summary>
+        /// Update an existing post
+        /// </summary>
+        /// <param name="post">Post</param>
+        /// <param name="id">Post id</param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PostDto>> Put([FromBody]EditPostDto post, [FromRoute]string id)
+        {
+            var updatedPost = await _mediator.Send(new EditPostCommand { Post = post, PostId = id});
+            return Ok(updatedPost);
+        }
+
+        /// <summary>
+        /// Delete a post
+        /// </summary>
+        /// <param name="id">Post id</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute]string id)
         {

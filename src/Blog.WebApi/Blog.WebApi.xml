@@ -52,6 +52,13 @@
             <param name="post"></param>
             <returns></returns>
         </member>
+        <member name="M:Blog.WebApi.Controllers.PostsController.Put(Blog.ApplicationCore.Features.Commands.Post.EditPost.EditPostDto,System.String)">
+            <summary>
+            Update an existing post
+            </summary>
+            <param name="post">Post</param>
+            <returns></returns>
+        </member>
         <member name="M:Blog.WebApi.Controllers.PostsController.Delete(System.String)">
             <summary>
             Delete a post
