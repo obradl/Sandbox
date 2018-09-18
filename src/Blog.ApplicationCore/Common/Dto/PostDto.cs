@@ -10,7 +10,7 @@ namespace Blog.ApplicationCore.Common.Dto
         public string Body { get; set; }
         public string Lead { get; set; }
         public bool Published { get; set; }
-        public DateTimeOffset DateCreated { get; set; }
-        public DateTimeOffset? DatePublished { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime? DatePublished { get; set; }
     }
 }
