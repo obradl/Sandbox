@@ -5,6 +5,7 @@ using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
 using Blog.ApplicationCore.Features.Post.Commands.DeletePost;
 using Blog.ApplicationCore.Features.Post.Commands.EditPost;
 using Blog.ApplicationCore.Features.Post.Commands.PublishPost;
+using Blog.ApplicationCore.Features.Post.Commands.RatePost;
 using Blog.ApplicationCore.Features.Post.Commands.UnPublishPost;
 using Blog.ApplicationCore.Features.Post.Queries.GetPosts;
 using Blog.ApplicationCore.Features.Post.Queries.GetSinglePost;
@@ -56,6 +57,19 @@ namespace Blog.WebApi.Controllers
         {
             var publishedPost = await _mediator.Send(new PublishPostCommand {PostId = id });
             return Ok(publishedPost);
+        }
+
+        /// <summary>
+        /// Rate a post. Range: 1-5
+        /// </summary>
+        /// <param name="id">Post id</param>
+        /// <param name="rating">Rating</param>
+        /// <returns></returns>
+        [HttpPut("{id}/rate")]
+        public async Task<ActionResult> Rate([FromRoute]string id, [FromBody]int rating)
+        {
+           await _mediator.Send(new RatePostCommand { PostId = id, Rating = rating });
+           return Ok();
         }
 
         /// <summary>

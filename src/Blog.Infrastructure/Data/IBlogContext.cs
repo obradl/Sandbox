@@ -5,8 +5,9 @@ namespace Blog.Infrastructure.Data
 {
     public interface IBlogContext
     {
-        IMongoCollection<Post> Posts { get;}
+        IMongoCollection<Post> Posts { get; }
 
-        IMongoCollection<Comment> Comments { get;}
+        IMongoCollection<Comment> Comments { get; }
+        IMongoCollection<PostRating> PostRatings { get; }
     }
 }

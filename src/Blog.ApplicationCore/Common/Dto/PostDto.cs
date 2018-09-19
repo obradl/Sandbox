@@ -12,5 +12,6 @@ namespace Blog.ApplicationCore.Common.Dto
         public bool Published { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DatePublished { get; set; }
+        public int Rating { get; set; }
     }
 }

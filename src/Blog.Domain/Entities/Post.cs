@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -17,7 +19,7 @@ namespace Blog.Domain.Entities
         public bool Published { get; private set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
-        public DateTime DateCreated { get;}
+        public DateTime DateCreated { get; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
         public DateTime? DatePublished { get; private set; }
@@ -25,7 +27,10 @@ namespace Blog.Domain.Entities
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
         public DateTime Updated { get; private set; }
 
-        public Post(string title, string  author, string body, string lead)
+        [BsonIgnore]
+        public IEnumerable<PostRating> Ratings { private get; set; }
+
+        public Post(string title, string author, string body, string lead)
         {
             Title = title;
             Author = author;
@@ -47,6 +52,17 @@ namespace Blog.Domain.Entities
             Published = false;
             DatePublished = null;
             SetUpdatedTime();
+        }
+
+        public int CalculateAverageRating()
+        {
+            if (Ratings != null)
+            {
+                return Ratings.Sum(d => d.Rating) / Ratings.Count();
+            }
+
+            return 0;
+
         }
 
         public void Update(string author, string body, string lead, string title)

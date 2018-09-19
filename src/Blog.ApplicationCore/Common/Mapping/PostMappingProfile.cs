@@ -8,7 +8,8 @@ namespace Blog.ApplicationCore.Common.Mapping
     {
         public PostMappingProfile()
         {
-            CreateMap<Post, PostDto>();
+            CreateMap<Post, PostDto>()
+                .ForMember(d=>d.Rating, opt=>opt.MapFrom(d => d.CalculateAverageRating()));
         }
     }
 }

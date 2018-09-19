@@ -20,9 +20,16 @@ namespace Blog.Infrastructure.Data
                 .Find(d => d.Id == id)
                 .FirstOrDefaultAsync(CancellationToken.None);
 
+            //var postRatings = await _blogContext.PostRatings
+            //    .Find(Builders<PostRating>.Filter
+            //        .Where(d => d.PostId == id))
+            //    .ToListAsync();
+            var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == id).ToListAsync();
+            post.Ratings = postRatings;
+
             return post;
         }
-        
+
 
         public async Task Update(Post post)
         {
@@ -38,12 +45,18 @@ namespace Blog.Infrastructure.Data
         public async Task<IEnumerable<Post>> GetAll(bool published)
         {
             return await _blogContext.Posts
-                .Find(Builders<Post>.Filter.Where(d=>d.Published == published)).ToListAsync();
+                .Find(Builders<Post>.Filter.Where(d => d.Published == published)).ToListAsync();
         }
 
         public Task Delete(string id)
         {
             return _blogContext.Posts.DeleteOneAsync(d => d.Id == id);
+        }
+
+        public async Task AddRating(string id, int rating)
+        {
+            var postRating = new PostRating(id, rating);
+            await _blogContext.PostRatings.InsertOneAsync(postRating);
         }
     }
 }

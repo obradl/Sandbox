@@ -11,5 +11,6 @@ namespace Blog.Infrastructure.Data
         Task Insert(Post post);
         Task<IEnumerable<Post>> GetAll(bool published);
         Task Delete(string id);
+        Task AddRating(string id, int rating);
     }
 }

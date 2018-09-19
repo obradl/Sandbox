@@ -28,5 +28,7 @@ namespace Blog.Infrastructure.Data
         public IMongoCollection<Post> Posts => _database.GetCollection<Post>("Post");
 
         public IMongoCollection<Comment> Comments => _database.GetCollection<Comment>("Comment");
+
+        public IMongoCollection<PostRating> PostRatings => _database.GetCollection<PostRating>("PostRating");
     }
 }
