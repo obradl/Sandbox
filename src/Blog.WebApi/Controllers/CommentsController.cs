@@ -43,7 +43,7 @@ namespace Blog.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("~/api/posts/{postId}/comments")]
-        public async Task<ActionResult<List<CommentDto>>> GetCommentsForPost([FromRoute]string postId)
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsForPost([FromRoute]string postId)
         {
             var comments = await _mediator.Send(new GetCommentsForPostQuery(){PostId = postId});
             return Ok(comments);

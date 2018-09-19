@@ -35,7 +35,7 @@ namespace Blog.Infrastructure.Data
             return postCollection.InsertOneAsync(post);
         }
 
-        public async Task<List<Post>> GetAll(bool published)
+        public async Task<IEnumerable<Post>> GetAll(bool published)
         {
             return await _blogContext.Posts
                 .Find(Builders<Post>.Filter.Where(d=>d.Published == published)).ToListAsync();

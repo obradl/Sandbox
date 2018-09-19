@@ -28,7 +28,7 @@ namespace Blog.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<List<PostDto>>> Get([FromQuery]bool published = false)
+        public async Task<ActionResult<IEnumerable<PostDto>>> Get([FromQuery]bool published = false)
         {
             var posts = await _mediator.Send(new GetPostsQuery { PublishedOnly = published });
             return Ok(posts);

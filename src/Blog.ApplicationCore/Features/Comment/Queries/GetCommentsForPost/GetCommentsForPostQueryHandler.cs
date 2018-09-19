@@ -9,7 +9,7 @@ using MediatR;
 
 namespace Blog.ApplicationCore.Features.Comment.Queries.GetCommentsForPost
 {
-    public class GetCommentsForPostQueryHandler : IRequestHandler<GetCommentsForPostQuery, List<CommentDto>>
+    public class GetCommentsForPostQueryHandler : IRequestHandler<GetCommentsForPostQuery, IEnumerable<CommentDto>>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
@@ -20,15 +20,15 @@ namespace Blog.ApplicationCore.Features.Comment.Queries.GetCommentsForPost
             _mapper = mapper;
         }
 
-        public async Task<List<CommentDto>> Handle(GetCommentsForPostQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CommentDto>> Handle(GetCommentsForPostQuery request, CancellationToken cancellationToken)
         {
             var comments = await _commentRepository.GetAll(request.PostId);
-            var commentDtos = _mapper.Map<List<Domain.Entities.Comment>, List<CommentDto>>(comments);
+            var commentDtos = _mapper.Map<IEnumerable<Domain.Entities.Comment>, IEnumerable<CommentDto>>(comments);
             return commentDtos;
         }
     }
 
-    public class GetCommentsForPostQuery : IPostRequest, IRequest<List<CommentDto>>
+    public class GetCommentsForPostQuery : IPostRequest, IRequest<IEnumerable<CommentDto>>
     {
     }
 }

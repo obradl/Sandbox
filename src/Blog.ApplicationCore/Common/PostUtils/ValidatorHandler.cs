@@ -27,7 +27,7 @@
 //            .Select(v => v.Validate(context))
 //            .SelectMany(result => result.Errors)
 //            .Where(f => f != null)
-//            .ToList();
+//            .ToIEnumerable();
 
 //        if (failures.Any())
 //            throw new ValidationException(failures);

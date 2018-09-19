@@ -9,7 +9,7 @@ namespace Blog.Infrastructure.Data
         Task<Comment> Get(string id);
         Task Update(Comment comment);
         Task Insert(Comment comment);
-        Task<List<Comment>> GetAll(string postId);
+        Task<IEnumerable<Comment>> GetAll(string postId);
         Task Delete(string commentId);
     }
 }

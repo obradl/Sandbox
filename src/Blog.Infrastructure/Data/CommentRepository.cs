@@ -33,7 +33,7 @@ namespace Blog.Infrastructure.Data
             return _blogContext.Comments.InsertOneAsync(comment);
         }
 
-        public async Task<List<Comment>> GetAll(string postId)
+        public async Task<IEnumerable<Comment>> GetAll(string postId)
         {
             return await _blogContext.Comments.Find(d=>d.PostId == postId).ToListAsync();
         }

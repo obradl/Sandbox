@@ -9,7 +9,7 @@ namespace Blog.Infrastructure.Data
         Task<Post> Get(string id);
         Task Update(Post post);
         Task Insert(Post post);
-        Task<List<Post>> GetAll(bool published);
+        Task<IEnumerable<Post>> GetAll(bool published);
         Task Delete(string id);
     }
 }

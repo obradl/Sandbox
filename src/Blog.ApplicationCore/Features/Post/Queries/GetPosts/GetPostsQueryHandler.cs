@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Blog.ApplicationCore.Features.Post.Queries.GetPosts
 {
-    public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, List<PostDto>>
+    public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, IEnumerable<PostDto>>
     {
         private readonly IPostRepository _postRepository;
 
@@ -16,7 +16,7 @@ namespace Blog.ApplicationCore.Features.Post.Queries.GetPosts
             _postRepository = postRepository;
         }
 
-        public async Task<List<PostDto>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<PostDto>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
         {
             var existingPosts = await _postRepository.GetAll(published: request.PublishedOnly);
             var postsDto = new List<PostDto>();
@@ -40,7 +40,7 @@ namespace Blog.ApplicationCore.Features.Post.Queries.GetPosts
         }
     }
 
-    public class GetPostsQuery : IRequest<List<PostDto>>
+    public class GetPostsQuery : IRequest<IEnumerable<PostDto>>
     {
         public bool PublishedOnly { get; set; }
     }
