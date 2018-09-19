@@ -4,8 +4,6 @@ using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Common.PostUtils;
 using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
-using Blog.Infrastructure;
-using Blog.Infrastructure.ApiClients.WeatherClient;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using MediatR;
@@ -31,8 +29,6 @@ namespace Blog.WebApi
         {
             services.AddOptions();
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
-
-            services.AddHttpClient<IWeatherClient, WeatherClient>();
 
             services.AddScoped<IBlogContext, BlogContext>();
             services.AddScoped<IPostRepository, PostRepository>();
