@@ -54,14 +54,14 @@ namespace Blog.Domain.Entities
             SetUpdatedTime();
         }
 
-        public int CalculateAverageRating()
+        public int? CalculateAverageRating()
         {
             if (Ratings != null && Ratings.Any())
             {
                 return Ratings.Sum(d => d.Rating) / Ratings.Count();
             }
 
-            return 0;
+            return null;
 
         }
 
