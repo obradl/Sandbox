@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Blog.Domain.Entities;
@@ -20,10 +21,6 @@ namespace Blog.Infrastructure.Data
                 .Find(d => d.Id == id)
                 .FirstOrDefaultAsync(CancellationToken.None);
 
-            //var postRatings = await _blogContext.PostRatings
-            //    .Find(Builders<PostRating>.Filter
-            //        .Where(d => d.PostId == id))
-            //    .ToListAsync();
             var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == id).ToListAsync();
             post.Ratings = postRatings;
 
@@ -44,8 +41,26 @@ namespace Blog.Infrastructure.Data
 
         public async Task<IEnumerable<Post>> GetAll(bool published)
         {
-            return await _blogContext.Posts
+            var posts = await _blogContext.Posts
                 .Find(Builders<Post>.Filter.Where(d => d.Published == published)).ToListAsync();
+
+            var postIds= posts.Select(d => d.Id).ToList();
+            var postRatings = await _blogContext.PostRatings.Find(d => postIds.Contains(d.PostId)).ToListAsync();
+
+            var ratingsByPostId = postRatings.GroupBy(d => d.PostId);
+
+            foreach (var pr in ratingsByPostId)
+            {
+                var postId = pr.Key;
+                var post = posts.FirstOrDefault(d => d.Id == postId);
+
+                if (post != null)
+                {
+                    post.Ratings = pr.ToList();
+                }
+            }
+
+            return posts;
         }
 
         public Task Delete(string id)

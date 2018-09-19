@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
@@ -10,31 +12,18 @@ namespace Blog.ApplicationCore.Features.Post.Queries.GetPosts
     public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, IEnumerable<PostDto>>
     {
         private readonly IPostRepository _postRepository;
+        private readonly IMapper _mapper;
 
-        public GetPostsQueryHandler(IPostRepository postRepository)
+        public GetPostsQueryHandler(IPostRepository postRepository, IMapper mapper)
         {
             _postRepository = postRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<PostDto>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
         {
             var existingPosts = await _postRepository.GetAll(published: request.PublishedOnly);
-            var postsDto = new List<PostDto>();
-
-            foreach (var post in existingPosts)
-            {
-                postsDto.Add(new PostDto
-                {
-                    Id = post.Id,
-                    Lead = post.Lead,
-                    Body = post.Body,
-                    Title = post.Title,
-                    Author = post.Author,
-                    DateCreated = post.DateCreated,
-                    Published = post.Published,
-                    DatePublished = post.DatePublished
-                });
-            }
+            var postsDto = _mapper.Map<List<Domain.Entities.Post>, List<PostDto>>(existingPosts.ToList());
 
             return postsDto;
         }
