@@ -56,7 +56,7 @@ namespace Blog.Domain.Entities
 
         public int CalculateAverageRating()
         {
-            if (Ratings != null)
+            if (Ratings != null && Ratings.Any())
             {
                 return Ratings.Sum(d => d.Rating) / Ratings.Count();
             }
