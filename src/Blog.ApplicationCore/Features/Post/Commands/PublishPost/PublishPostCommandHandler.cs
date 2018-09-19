@@ -23,8 +23,7 @@ namespace Blog.ApplicationCore.Features.Post.Commands.PublishPost
         public async Task<PostDto> Handle(PublishPostCommand request, CancellationToken cancellationToken)
         {        
             var existingPost = await _postRepository.Get(request.PostId);
-            existingPost.Published = true;
-            existingPost.DatePublished = DateTime.Now;
+            existingPost.Publish();
 
             await _postRepository.Update(existingPost);
 
@@ -35,5 +34,6 @@ namespace Blog.ApplicationCore.Features.Post.Commands.PublishPost
 
     public class PublishPostCommand : IPostRequest, IRequest<PostDto>
     {
+        public string PostId { get; set; }
     }
 }

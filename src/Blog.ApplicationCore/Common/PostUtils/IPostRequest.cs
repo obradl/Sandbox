@@ -1,7 +1,7 @@
 ﻿namespace Blog.ApplicationCore.Common.PostUtils
 {
-    public class IPostRequest
+    public interface IPostRequest
     {
-        public string PostId { get; set; }
+        string PostId { get; set; }
     }
 }

@@ -8,15 +8,23 @@ namespace Blog.Domain.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string Id { get; private set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
-        public string PostId { get; set; }
+        public string PostId { get; }
 
-        public string Author { get; set; }
-        public string Body { get; set; }
+        public string Author { get; }
+        public string Body { get; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; }
+
+        public Comment(string author, string body, string postId)
+        {
+            Author = author;
+            Body = body;
+            DateCreated = DateTime.Now;
+            PostId = postId;
+        }
     }
 }

@@ -22,8 +22,7 @@ namespace Blog.ApplicationCore.Features.Post.Commands.UnPublishPost
         public async Task<PostDto> Handle(UnPublishPostCommand request, CancellationToken cancellationToken)
         {        
             var existingPost = await _postRepository.Get(request.PostId);
-            existingPost.Published = false;
-            existingPost.DatePublished = null;
+            existingPost.UnPublish();
 
             await _postRepository.Update(existingPost);
 
@@ -34,5 +33,6 @@ namespace Blog.ApplicationCore.Features.Post.Commands.UnPublishPost
 
     public class UnPublishPostCommand : IPostRequest, IRequest<PostDto>
     {
+        public string PostId { get; set; }
     }
 }

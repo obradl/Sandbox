@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.Dto;
+using Blog.ApplicationCore.Common.PostUtils;
 using Blog.Infrastructure.Data;
 using MediatR;
 
@@ -35,7 +36,8 @@ namespace Blog.ApplicationCore.Features.Post.Queries.GetSinglePost
         }
     }
 
-    public class GetSinglePostQuery : Common.PostUtils.IPostRequest, IRequest<PostDto>
+    public class GetSinglePostQuery : IPostRequest, IRequest<PostDto>
     {
+        public string PostId { get; set; }
     }
 }

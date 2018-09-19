@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
@@ -21,14 +20,7 @@ namespace Blog.ApplicationCore.Features.Comment.Commands.CreateComment
 
         public async Task<CommentDto> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
-            var comment = new Domain.Entities.Comment()
-            {
-                PostId = request.PostId,
-                Author = request.Comment.Author,
-                Body = request.Comment.Body,
-                DateCreated = DateTime.Now
-            };
-
+            var comment = new Domain.Entities.Comment(request.Comment.Author, request.Comment.Body, request.PostId);
             await _commentRepository.Insert(comment);
 
             var createdComment = _mapper.Map<Domain.Entities.Comment, CommentDto>(comment);

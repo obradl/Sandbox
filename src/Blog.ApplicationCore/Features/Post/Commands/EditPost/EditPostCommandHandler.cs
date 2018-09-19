@@ -20,11 +20,9 @@ namespace Blog.ApplicationCore.Features.Post.Commands.EditPost
         }
         public async Task<PostDto> Handle(EditPostCommand request, CancellationToken cancellationToken)
         {
+            var incomingPost = request.Post;
             var post =  await _postRepository.Get(request.PostId);
-            post.Author = post.Author;
-            post.Body = post.Body;
-            post.Lead = post.Lead;
-            post.Title = post.Title;
+            post.Update(incomingPost.Author, incomingPost.Body, incomingPost.Lead, incomingPost.Title);
 
             await _postRepository.Update(post);
 
@@ -36,5 +34,6 @@ namespace Blog.ApplicationCore.Features.Post.Commands.EditPost
     public class EditPostCommand : IPostRequest, IRequest<PostDto>
     {
         public EditPostDto Post { get; set; }
+        public string PostId { get; set; }
     }
 }
