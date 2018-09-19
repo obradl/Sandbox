@@ -23,8 +23,9 @@ namespace Blog.ApplicationCore.Features.Post.Commands.EditPost
             var incomingPost = request.Post;
             var post =  await _postRepository.Get(request.PostId);
             post.Update(incomingPost.Author, incomingPost.Body, incomingPost.Lead, incomingPost.Title);
-
+   
             await _postRepository.Update(post);
+            post = await _postRepository.Get(post.Id);
 
             var updatedPost = _mapper.Map<Domain.Entities.Post, PostDto>(post);
             return updatedPost;

@@ -27,6 +27,8 @@ namespace Blog.ApplicationCore.Features.Post.Commands.CreatePost
                 incomingPostDto.Lead);
 
             await _postRepository.Insert(post);
+            post = await _postRepository.Get(post.Id);
+
             var postDto = _mapper.Map<Domain.Entities.Post, PostDto>(post);
 
             return postDto;

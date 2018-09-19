@@ -26,6 +26,7 @@ namespace Blog.ApplicationCore.Features.Post.Commands.PublishPost
             existingPost.Publish();
 
             await _postRepository.Update(existingPost);
+            existingPost = await _postRepository.Get(existingPost.Id);
 
             var postDto =  _mapper.Map<Domain.Entities.Post, PostDto>(existingPost);
             return postDto;
