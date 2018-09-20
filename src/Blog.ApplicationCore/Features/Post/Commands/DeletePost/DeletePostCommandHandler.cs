@@ -1,23 +1,24 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.Domain.Repositories;
+using Blog.Infrastructure.Data;
 using MediatR;
+using MongoDB.Driver;
 
 namespace Blog.ApplicationCore.Features.Post.Commands.DeletePost
 {
     public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IBlogContext _blogContext;
 
-        public DeletePostCommandHandler(IPostRepository postRepository)
+        public DeletePostCommandHandler(IBlogContext blogContext)
         {
-            _postRepository = postRepository;
+            _blogContext = blogContext;
         }
 
         public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
-            await _postRepository.Delete(request.PostId);
+            await _blogContext.Posts.DeleteOneAsync(d => d.Id == request.PostId, cancellationToken);
             return Unit.Value;
         }
     }

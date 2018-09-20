@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using AutoMapper;
-using Blog.ApplicationCore.Common.PostUtils;
 using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
 using Blog.Domain.Repositories;
 using Blog.Infrastructure.Data;
@@ -33,9 +32,8 @@ namespace Blog.WebApi
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
 
             services.AddScoped<IBlogContext, BlogContext>();
-            services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatePostExistsPipelineBehavior<,>));
+            //services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatePostExistsPipelineBehavior<,>));
 
             services.AddMvc(options => { options.Filters.Add<ExceptionFilter>(); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

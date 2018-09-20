@@ -3,28 +3,37 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.Domain.Repositories;
+using Blog.Infrastructure.Data;
 using MediatR;
+using MongoDB.Driver;
 
 namespace Blog.ApplicationCore.Features.Post.Commands.UnPublishPost
 {
     public class UnPublishPostCommandHandler : IRequestHandler<UnPublishPostCommand, PostDto>
     {
+        private readonly IBlogContext _blogContext;
         private readonly IMapper _mapper;
-        private readonly IPostRepository _postRepository;
 
-        public UnPublishPostCommandHandler(IPostRepository postRepository, IMapper mapper)
+        public UnPublishPostCommandHandler(IBlogContext blogContext, IMapper mapper)
         {
-            _postRepository = postRepository;
+            _blogContext = blogContext;
             _mapper = mapper;
         }
 
         public async Task<PostDto> Handle(UnPublishPostCommand request, CancellationToken cancellationToken)
         {
-            var existingPost = await _postRepository.Get(request.PostId);
+            var existingPost = await _blogContext.Posts
+                .Find(d => d.Id == request.PostId)
+                .FirstOrDefaultAsync(CancellationToken.None);
+
+            var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == existingPost.Id)
+                .ToListAsync(cancellationToken);
+
+            existingPost.Ratings = postRatings;
             existingPost.UnPublish();
 
-            await _postRepository.Update(existingPost);
+            await _blogContext.Posts.ReplaceOneAsync(r => r.Id == request.PostId, existingPost,
+                cancellationToken: cancellationToken);
 
             var postDto = _mapper.Map<Domain.Entities.Post, PostDto>(existingPost);
             return postDto;

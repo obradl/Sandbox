@@ -3,25 +3,31 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.Domain.Repositories;
+using Blog.Infrastructure.Data;
 using MediatR;
+using MongoDB.Driver;
 
 namespace Blog.ApplicationCore.Features.Post.Queries.GetSinglePost
 {
     public class GetSinglePostQueryHandler : IRequestHandler<GetSinglePostQuery, PostDto>
     {
+        private readonly IBlogContext _blogContext;
         private readonly IMapper _mapper;
-        private readonly IPostRepository _postRepository;
 
-        public GetSinglePostQueryHandler(IPostRepository postRepository, IMapper mapper)
+        public GetSinglePostQueryHandler(IBlogContext blogContext, IMapper mapper)
         {
-            _postRepository = postRepository;
+            _blogContext = blogContext;
             _mapper = mapper;
         }
 
         public async Task<PostDto> Handle(GetSinglePostQuery request, CancellationToken cancellationToken)
         {
-            var existingPost = await _postRepository.Get(request.PostId);
+            var existingPost = await _blogContext.Posts
+                .Find(d => d.Id == request.PostId)
+                .FirstOrDefaultAsync(CancellationToken.None);
+
+            var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == existingPost.Id).ToListAsync();
+            existingPost.Ratings = postRatings;
             var postDto = _mapper.Map<Domain.Entities.Post, PostDto>(existingPost);
 
             return postDto;

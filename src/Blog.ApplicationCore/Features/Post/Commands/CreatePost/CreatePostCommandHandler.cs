@@ -3,18 +3,20 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
 using Blog.Domain.Repositories;
+using Blog.Infrastructure.Data;
 using MediatR;
+using MongoDB.Driver;
 
 namespace Blog.ApplicationCore.Features.Post.Commands.CreatePost
 {
     public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, PostDto>
     {
+        private readonly IBlogContext _blogContext;
         private readonly IMapper _mapper;
-        private readonly IPostRepository _postRepository;
 
-        public CreatePostCommandHandler(IPostRepository postRepository, IMapper mapper)
+        public CreatePostCommandHandler(IBlogContext blogContext, IMapper mapper)
         {
-            _postRepository = postRepository;
+            _blogContext = blogContext;
             _mapper = mapper;
         }
 
@@ -23,13 +25,20 @@ namespace Blog.ApplicationCore.Features.Post.Commands.CreatePost
             var incomingPostDto = request.Post;
 
             var post = new Domain.Entities.Post(incomingPostDto.Title,
-                incomingPostDto.Author, incomingPostDto.Body,
+                incomingPostDto.Author,
+                incomingPostDto.Body,
                 incomingPostDto.Lead);
 
-            await _postRepository.Insert(post);
-            post = await _postRepository.Get(post.Id);
+            await _blogContext.Posts.InsertOneAsync(post, cancellationToken: cancellationToken);
 
-            var postDto = _mapper.Map<Domain.Entities.Post, PostDto>(post);
+            var createdPost = await _blogContext.Posts
+                .Find(d => d.Id == post.Id)
+                .FirstOrDefaultAsync(CancellationToken.None);
+
+            var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == createdPost.Id).ToListAsync(cancellationToken);
+            createdPost.Ratings = postRatings;
+
+            var postDto = _mapper.Map<Domain.Entities.Post, PostDto>(createdPost);
 
             return postDto;
         }

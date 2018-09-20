@@ -1,23 +1,26 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.Domain.Repositories;
+using Blog.Domain.Entities;
+using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Post.Commands.RatePost
 {
     public class RatePostCommandHandler : IRequestHandler<RatePostCommand>
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IBlogContext _blogContext;
 
-        public RatePostCommandHandler(IPostRepository postRepository)
+        public RatePostCommandHandler(IBlogContext blogContext)
         {
-            _postRepository = postRepository;
+            _blogContext = blogContext;
         }
 
         public async Task<Unit> Handle(RatePostCommand request, CancellationToken cancellationToken)
         {
-            await _postRepository.AddRating(request.PostId, request.Rating);
+            var postRating = new PostRating(request.PostId, request.Rating);
+            await _blogContext.PostRatings.InsertOneAsync(postRating, cancellationToken: cancellationToken);
+
             return Unit.Value;
         }
     }
