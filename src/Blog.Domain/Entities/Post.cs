@@ -8,8 +8,7 @@ namespace Blog.Domain.Entities
 {
     public class Post
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonId, BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
 
         public string Title { get; private set; }

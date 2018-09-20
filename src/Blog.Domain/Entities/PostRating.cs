@@ -5,8 +5,7 @@ namespace Blog.Domain.Entities
 {
     public class PostRating
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonId, BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
 
         [BsonRepresentation(BsonType.ObjectId)]

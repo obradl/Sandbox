@@ -6,8 +6,7 @@ namespace Blog.Domain.Entities
 {
     public class Comment
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonId, BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
 
         [BsonRepresentation(BsonType.ObjectId)]

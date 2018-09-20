@@ -1,8 +1,11 @@
 ﻿using System;
 
-public class EntityDoesNotExistsException : Exception
+namespace Blog.ApplicationCore.Common
 {
-    public EntityDoesNotExistsException(string s):base(s)
+    public class EntityDoesNotExistsException : Exception
     {
+        public EntityDoesNotExistsException(string s) : base(s)
+        {
+        }
     }
 }
