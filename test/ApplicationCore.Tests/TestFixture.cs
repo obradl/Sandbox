@@ -6,11 +6,10 @@ namespace ApplicationCore.Tests
 {
     public class TestFixture
     {
-
         public TestFixture()
         {
-            var config = new MapperConfiguration(cfg => {
-                
+            var config = new MapperConfiguration(cfg =>
+            {
                 cfg.AddProfiles(Assembly.GetAssembly(typeof(PostMappingProfile)));
             });
 

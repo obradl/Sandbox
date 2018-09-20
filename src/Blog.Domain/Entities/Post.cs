@@ -79,6 +79,7 @@ namespace Blog.Domain.Entities
         {
             Title = title;
         }
+
         private void SetUpdatedTime()
         {
             Updated = DateTime.Now;

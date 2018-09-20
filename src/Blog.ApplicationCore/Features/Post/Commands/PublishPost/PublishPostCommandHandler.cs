@@ -27,14 +27,14 @@ namespace Blog.ApplicationCore.Features.Post.Commands.PublishPost
                 .Find(d => d.Id == request.PostId)
                 .FirstOrDefaultAsync(CancellationToken.None);
 
-            var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == existingPost.Id)
-                .ToListAsync(cancellationToken);
-
-            existingPost.Ratings = postRatings;
             existingPost.Publish();
 
             await _blogContext.Posts.ReplaceOneAsync(r => r.Id == request.PostId, existingPost,
                 cancellationToken: cancellationToken);
+
+            var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == existingPost.Id)
+                .ToListAsync(cancellationToken);
+            existingPost.Ratings = postRatings;
 
             var postDto = _mapper.Map<Domain.Entities.Post, PostDto>(existingPost);
             return postDto;

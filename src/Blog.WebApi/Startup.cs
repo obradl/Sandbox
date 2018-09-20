@@ -60,7 +60,6 @@ namespace Blog.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-          
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

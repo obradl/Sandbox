@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
-using Blog.Domain.Repositories;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;

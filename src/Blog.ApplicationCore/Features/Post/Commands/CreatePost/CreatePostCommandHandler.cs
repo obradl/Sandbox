@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
-using Blog.Domain.Repositories;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
@@ -35,11 +34,11 @@ namespace Blog.ApplicationCore.Features.Post.Commands.CreatePost
                 .Find(d => d.Id == post.Id)
                 .FirstOrDefaultAsync(CancellationToken.None);
 
-            var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == createdPost.Id).ToListAsync(cancellationToken);
+            var postRatings = await _blogContext.PostRatings.Find(d => d.PostId == createdPost.Id)
+                .ToListAsync(cancellationToken);
             createdPost.Ratings = postRatings;
 
             var postDto = _mapper.Map<Domain.Entities.Post, PostDto>(createdPost);
-
             return postDto;
         }
     }
