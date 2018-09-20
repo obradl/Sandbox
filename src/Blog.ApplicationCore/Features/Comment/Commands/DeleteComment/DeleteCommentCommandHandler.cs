@@ -1,22 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Blog.Domain.Repositories;
+using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Comment.Commands.DeleteComment
 {
     public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand>
     {
-        private readonly ICommentRepository _commentRepository;
+        private readonly IBlogContext _blogContext;
 
-        public DeleteCommentCommandHandler(ICommentRepository commentRepository)
+        public DeleteCommentCommandHandler(IBlogContext blogContext)
         {
-            _commentRepository = commentRepository;
+            _blogContext = blogContext;
         }
 
         public async Task<Unit> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
-            await _commentRepository.Delete(request.CommentId);
+            await _blogContext.Comments.DeleteOneAsync(request.CommentId, cancellationToken);
             return Unit.Value;
         }
     }
