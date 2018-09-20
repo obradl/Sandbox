@@ -8,14 +8,14 @@ using Newtonsoft.Json;
 
 namespace Blog.WebApi.Middleware
 {
-    public class ExceptionHandlerMiddleware
+    public class DevExceptionHandlerMiddleware
     {
-        private readonly ILogger<ExceptionHandlerMiddleware> _logger;
+        private readonly ILogger<DevExceptionHandlerMiddleware> _logger;
         private readonly RequestDelegate _next;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
+        public DevExceptionHandlerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<ExceptionHandlerMiddleware>();
+            _logger = loggerFactory.CreateLogger<DevExceptionHandlerMiddleware>();
             _next = next;
         }
 
@@ -38,16 +38,30 @@ namespace Blog.WebApi.Middleware
                 httpContext.Response.StatusCode = 500;
                 httpContext.Response.ContentType = new MediaTypeHeaderValue("application/json").ToString();
 
-                await httpContext.Response.WriteAsync(JsonConvert.SerializeObject("An error occured."));
+                var error = new Error
+                {
+                    Message = ex.Message,
+                    Source = ex.Source,
+                    StackTrace = ex.StackTrace
+                };
+
+                await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(error));
             }
+        }
+
+        internal class Error
+        {
+            public string Message { get; set; }
+            public string StackTrace { get; set; }
+            public string Source { get; set; }
         }
     }
 
-    public static class ExceptionHandlerMiddlewareExtensions
+    public static class DevExceptionHandlerMiddlewareExtensions
     {
-        public static IApplicationBuilder UseExceptionHandlerMiddleware(this IApplicationBuilder builder)
+        public static IApplicationBuilder DevExceptionHandlerMiddleware(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<ExceptionHandlerMiddleware>();
+            return builder.UseMiddleware<DevExceptionHandlerMiddleware>();
         }
     }
 }

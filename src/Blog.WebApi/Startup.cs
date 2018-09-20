@@ -7,6 +7,7 @@ using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
 using Blog.Domain.Repositories;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
+using Blog.WebApi.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,7 +50,7 @@ namespace Blog.WebApi
                         Title = "Blog API", Version = "v1",
                         Description = "An API made with .Net core 2.1," +
                                       " Swashbuckle/Swagger, MediatR, MongoDb," +
-                                      " FluentValidation, XUnit, Moq, AutoMapper, DDD-ish "
+                                      " FluentValidation, XUnit, Moq, AutoMapper, DDD-ish, command pattern "
                     });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -61,6 +62,7 @@ namespace Blog.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+          
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -68,7 +70,15 @@ namespace Blog.WebApi
                 c.RoutePrefix = string.Empty;
             });
 
-            if (!env.IsDevelopment()) app.UseHsts();
+            if (env.IsDevelopment())
+            {
+                app.DevExceptionHandlerMiddleware();
+            }
+            else
+            {
+                app.UseExceptionHandlerMiddleware();
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
             app.UseMvc();
