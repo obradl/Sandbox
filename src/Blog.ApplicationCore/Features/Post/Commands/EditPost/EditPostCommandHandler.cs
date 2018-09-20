@@ -23,8 +23,12 @@ namespace Blog.ApplicationCore.Features.Post.Commands.EditPost
         {
             var incomingPost = request.Post;
             var post = await _postRepository.Get(request.PostId);
-            post.Update(incomingPost.Author, incomingPost.Body, incomingPost.Lead, incomingPost.Title);
 
+            post.SetAuthor(incomingPost.Author);
+            post.SetBody(incomingPost.Body);
+            post.SetLead(incomingPost.Lead);
+            post.SetTtile(incomingPost.Title);
+            
             await _postRepository.Update(post);
 
             var updatedPost = _mapper.Map<Domain.Entities.Post, PostDto>(post);

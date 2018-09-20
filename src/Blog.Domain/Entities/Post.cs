@@ -60,15 +60,25 @@ namespace Blog.Domain.Entities
             return null;
         }
 
-        public void Update(string author, string body, string lead, string title)
+        public void SetLead(string lead)
         {
-            Author = author;
-            Body = body;
             Lead = lead;
-            Title = title;
-            SetUpdatedTime();
         }
 
+        public void SetBody(string body)
+        {
+            Body = body;
+        }
+
+        public void SetAuthor(string author)
+        {
+            Author = author;
+        }
+
+        public void SetTtile(string title)
+        {
+            Title = title;
+        }
         private void SetUpdatedTime()
         {
             Updated = DateTime.Now;
