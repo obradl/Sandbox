@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Blog.Domain.Entities;
 
-namespace Blog.Infrastructure.Data
+namespace Blog.Domain.Repositories
 {
     public interface IPostRepository
     {

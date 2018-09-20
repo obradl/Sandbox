@@ -4,6 +4,8 @@ using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Common.PostUtils;
 using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
+using Blog.Domain.Entities;
+using Blog.Domain.Repositories;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using MediatR;

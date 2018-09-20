@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Common.PostUtils;
+using Blog.Domain.Entities;
+using Blog.Domain.Repositories;
 using Blog.Infrastructure.Data;
 using MediatR;
 

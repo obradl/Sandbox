@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Blog.Domain.Entities;
+using Blog.Domain.Repositories;
 using MongoDB.Driver;
 
 namespace Blog.Infrastructure.Data
