@@ -75,7 +75,7 @@ namespace Blog.Domain.Entities
             Author = author;
         }
 
-        public void SetTtile(string title)
+        public void SetTitle(string title)
         {
             Title = title;
         }

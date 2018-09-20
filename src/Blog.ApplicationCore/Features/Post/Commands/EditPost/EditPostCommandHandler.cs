@@ -27,7 +27,7 @@ namespace Blog.ApplicationCore.Features.Post.Commands.EditPost
             post.SetAuthor(incomingPost.Author);
             post.SetBody(incomingPost.Body);
             post.SetLead(incomingPost.Lead);
-            post.SetTtile(incomingPost.Title);
+            post.SetTitle(incomingPost.Title);
             
             await _postRepository.Update(post);
 
