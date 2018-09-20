@@ -15,6 +15,7 @@ namespace Blog.Infrastructure.Data
         {
             _blogContext = blogContext;
         }
+
         public async Task<Comment> Get(string id)
         {
             var comments = await _blogContext.Comments
@@ -36,7 +37,7 @@ namespace Blog.Infrastructure.Data
 
         public async Task<IEnumerable<Comment>> GetAll(string postId)
         {
-            return await _blogContext.Comments.Find(d=>d.PostId == postId).ToListAsync();
+            return await _blogContext.Comments.Find(d => d.PostId == postId).ToListAsync();
         }
 
         public async Task Delete(string id)

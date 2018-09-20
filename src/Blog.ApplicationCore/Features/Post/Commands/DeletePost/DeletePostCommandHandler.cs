@@ -1,9 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.Domain.Entities;
 using Blog.Domain.Repositories;
-using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Post.Commands.DeletePost
@@ -20,7 +18,7 @@ namespace Blog.ApplicationCore.Features.Post.Commands.DeletePost
         public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
             await _postRepository.Delete(request.PostId);
-            return  Unit.Value;
+            return Unit.Value;
         }
     }
 

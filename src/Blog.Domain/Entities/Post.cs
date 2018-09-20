@@ -8,7 +8,18 @@ namespace Blog.Domain.Entities
 {
     public class Post
     {
-        [BsonId, BsonRepresentation(BsonType.ObjectId)]
+        public Post(string title, string author, string body, string lead)
+        {
+            Title = title;
+            Author = author;
+            Body = body;
+            Lead = lead;
+            DateCreated = DateTime.Now;
+            SetUpdatedTime();
+        }
+
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
 
         public string Title { get; private set; }
@@ -26,18 +37,7 @@ namespace Blog.Domain.Entities
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
         public DateTime Updated { get; private set; }
 
-        [BsonIgnore]
-        public IEnumerable<PostRating> Ratings { private get; set; }
-
-        public Post(string title, string author, string body, string lead)
-        {
-            Title = title;
-            Author = author;
-            Body = body;
-            Lead = lead;
-            DateCreated = DateTime.Now;
-            SetUpdatedTime();
-        }
+        [BsonIgnore] public IEnumerable<PostRating> Ratings { private get; set; }
 
         public void Publish()
         {
@@ -55,13 +55,9 @@ namespace Blog.Domain.Entities
 
         public int? CalculateAverageRating()
         {
-            if (Ratings != null && Ratings.Any())
-            {
-                return Ratings.Sum(d => d.Rating) / Ratings.Count();
-            }
+            if (Ratings != null && Ratings.Any()) return Ratings.Sum(d => d.Rating) / Ratings.Count();
 
             return null;
-
         }
 
         public void Update(string author, string body, string lead, string title)

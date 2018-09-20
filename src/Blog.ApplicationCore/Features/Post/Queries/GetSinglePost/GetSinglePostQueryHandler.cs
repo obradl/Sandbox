@@ -3,17 +3,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.Domain.Entities;
 using Blog.Domain.Repositories;
-using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Post.Queries.GetSinglePost
 {
     public class GetSinglePostQueryHandler : IRequestHandler<GetSinglePostQuery, PostDto>
     {
-        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
+        private readonly IPostRepository _postRepository;
 
         public GetSinglePostQueryHandler(IPostRepository postRepository, IMapper mapper)
         {

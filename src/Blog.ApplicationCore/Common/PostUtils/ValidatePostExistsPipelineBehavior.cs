@@ -3,12 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Blog.Domain.Entities;
 using Blog.Domain.Repositories;
-using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Common.PostUtils
 {
-    public class ValidatePostExistsPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
+    public class ValidatePostExistsPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IPostRequest
     {
         private readonly IPostRepository _postRepository;
@@ -18,10 +17,10 @@ namespace Blog.ApplicationCore.Common.PostUtils
             _postRepository = postRepository;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, 
+        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
-            Domain.Entities.Post post = null;
+            Post post = null;
             try
             {
                 post = await _postRepository.Get(request.PostId);
@@ -30,11 +29,8 @@ namespace Blog.ApplicationCore.Common.PostUtils
             {
                 CreateException(request);
             }
-        
-            if (post == null)
-            {
-                CreateException(request);
-            }
+
+            if (post == null) CreateException(request);
 
             return await next();
         }

@@ -9,9 +9,7 @@ namespace Blog.WebApi.Filters
         public void OnException(ExceptionContext context)
         {
             if (context.Exception is EntityDoesNotExistsException ex)
-            {
                 context.Result = new NotFoundObjectResult(ex.Message);
-            }
         }
     }
 }

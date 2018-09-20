@@ -16,12 +16,12 @@ namespace Blog.Infrastructure.Data
                 new MongoUrl(settings.Value.ConnectionString));
 
             mongoClientSettings.SslSettings =
-                new SslSettings { EnabledSslProtocols = SslProtocols.Tls12 };
-    
+                new SslSettings {EnabledSslProtocols = SslProtocols.Tls12};
+
             var client = new MongoClient(mongoClientSettings);
             _database = client.GetDatabase(settings.Value.Database);
 
-            var conventionPack = new ConventionPack { new CamelCaseElementNameConvention() };
+            var conventionPack = new ConventionPack {new CamelCaseElementNameConvention()};
             ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
 

@@ -21,13 +21,13 @@ namespace Blog.WebApi.Controllers
         }
 
         /// <summary>
-        /// Create a new comment associated with a post
+        ///     Create a new comment associated with a post
         /// </summary>
         /// <param name="comment">Comment</param>
         /// <param name="postId">Post id</param>
         /// <returns></returns>
         [HttpPost("~/api/posts/{postId}/comments")]
-        public async Task<ActionResult<CommentDto>> Post([FromBody]CreateCommentDto comment, [FromRoute]string postId)
+        public async Task<ActionResult<CommentDto>> Post([FromBody] CreateCommentDto comment, [FromRoute] string postId)
         {
             var createdComment = await _mediator.Send(new CreateCommentCommand
             {
@@ -39,25 +39,25 @@ namespace Blog.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get comments for a given post
+        ///     Get comments for a given post
         /// </summary>
         /// <returns></returns>
         [HttpGet("~/api/posts/{postId}/comments")]
-        public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsForPost([FromRoute]string postId)
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsForPost([FromRoute] string postId)
         {
-            var comments = await _mediator.Send(new GetCommentsForPostQuery(){PostId = postId});
+            var comments = await _mediator.Send(new GetCommentsForPostQuery {PostId = postId});
             return Ok(comments);
         }
 
         /// <summary>
-        /// Delete a comment
+        ///     Delete a comment
         /// </summary>
         /// <param name="id">Comment id</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete([FromRoute]string id)
+        public async Task<ActionResult> Delete([FromRoute] string id)
         {
-            await _mediator.Send(new DeleteCommentCommand { CommentId = id });
+            await _mediator.Send(new DeleteCommentCommand {CommentId = id});
             return Ok();
         }
     }

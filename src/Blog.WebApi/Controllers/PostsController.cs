@@ -25,101 +25,100 @@ namespace Blog.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get posts
+        ///     Get posts
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostDto>>> Get([FromQuery]bool published = false)
+        public async Task<ActionResult<IEnumerable<PostDto>>> Get([FromQuery] bool published = false)
         {
-            var posts = await _mediator.Send(new GetPostsQuery { PublishedOnly = published });
+            var posts = await _mediator.Send(new GetPostsQuery {PublishedOnly = published});
             return Ok(posts);
         }
 
         /// <summary>
-        /// Get a single post by id
+        ///     Get a single post by id
         /// </summary>
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpGet("{id}", Name = "GetSingle")]
-        public async Task<ActionResult<PostDto>> GetSingle([FromRoute]string id)
+        public async Task<ActionResult<PostDto>> GetSingle([FromRoute] string id)
         {
-            var posts = await _mediator.Send(new GetSinglePostQuery {PostId = id });
+            var posts = await _mediator.Send(new GetSinglePostQuery {PostId = id});
             return Ok(posts);
         }
 
         /// <summary>
-        /// Make the post available for public
+        ///     Make the post available for public
         /// </summary>
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpPut("{id}/publish")]
-        public async Task<ActionResult<PostDto>> Publish([FromRoute]string id)
+        public async Task<ActionResult<PostDto>> Publish([FromRoute] string id)
         {
-            var publishedPost = await _mediator.Send(new PublishPostCommand {PostId = id });
+            var publishedPost = await _mediator.Send(new PublishPostCommand {PostId = id});
             return Ok(publishedPost);
         }
 
         /// <summary>
-        /// Rate a post. Range: 1-5
+        ///     Rate a post. Range: 1-5
         /// </summary>
         /// <param name="id">Post id</param>
         /// <param name="rating">Rating</param>
         /// <returns></returns>
         [HttpPut("{id}/rate")]
-        public async Task<ActionResult> Rate([FromRoute]string id, [FromBody]int rating)
+        public async Task<ActionResult> Rate([FromRoute] string id, [FromBody] int rating)
         {
-           await _mediator.Send(new RatePostCommand { PostId = id, Rating = rating });
-           return Ok();
+            await _mediator.Send(new RatePostCommand {PostId = id, Rating = rating});
+            return Ok();
         }
 
         /// <summary>
-        /// Make the post unavailable for public
+        ///     Make the post unavailable for public
         /// </summary>
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpPut("{id}/unpublish")]
-        public async Task<ActionResult<PostDto>> UnPublish([FromRoute]string id)
+        public async Task<ActionResult<PostDto>> UnPublish([FromRoute] string id)
         {
-            var publishedPost = await _mediator.Send(new UnPublishPostCommand { PostId = id });
+            var publishedPost = await _mediator.Send(new UnPublishPostCommand {PostId = id});
             return Ok(publishedPost);
         }
 
         /// <summary>
-        /// Create a new post
+        ///     Create a new post
         /// </summary>
         /// <param name="post"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<PostDto>> Post([FromBody]CreatePostDto post)
+        public async Task<ActionResult<PostDto>> Post([FromBody] CreatePostDto post)
         {
             var createdPost = await _mediator.Send(new CreatePostCommand {Post = post});
-            return CreatedAtRoute("GetSingle", new {createdPost.Id } ,createdPost);
+            return CreatedAtRoute("GetSingle", new {createdPost.Id}, createdPost);
         }
 
         /// <summary>
-        /// Update an existing post
+        ///     Update an existing post
         /// </summary>
         /// <param name="post">Post</param>
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<PostDto>> Put([FromBody]EditPostDto post, [FromRoute]string id)
+        public async Task<ActionResult<PostDto>> Put([FromBody] EditPostDto post, [FromRoute] string id)
         {
-            var updatedPost = await _mediator.Send(new EditPostCommand { Post = post, PostId = id});
+            var updatedPost = await _mediator.Send(new EditPostCommand {Post = post, PostId = id});
             return Ok(updatedPost);
         }
 
         /// <summary>
-        /// Delete a post
+        ///     Delete a post
         /// </summary>
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete([FromRoute]string id)
+        public async Task<ActionResult> Delete([FromRoute] string id)
         {
             await _mediator.Send(new DeletePostCommand {PostId = id});
             return Ok();
         }
-
     }
 }

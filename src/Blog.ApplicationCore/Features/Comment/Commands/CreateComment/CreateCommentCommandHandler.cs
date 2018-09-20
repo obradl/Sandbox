@@ -2,9 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
-using Blog.Domain.Entities;
 using Blog.Domain.Repositories;
-using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Comment.Commands.CreateComment

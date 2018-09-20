@@ -6,7 +6,16 @@ namespace Blog.Domain.Entities
 {
     public class Comment
     {
-        [BsonId, BsonRepresentation(BsonType.ObjectId)]
+        public Comment(string author, string body, string postId)
+        {
+            Author = author;
+            Body = body;
+            DateCreated = DateTime.Now;
+            PostId = postId;
+        }
+
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
@@ -17,13 +26,5 @@ namespace Blog.Domain.Entities
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
         public DateTime DateCreated { get; }
-
-        public Comment(string author, string body, string postId)
-        {
-            Author = author;
-            Body = body;
-            DateCreated = DateTime.Now;
-            PostId = postId;
-        }
     }
 }

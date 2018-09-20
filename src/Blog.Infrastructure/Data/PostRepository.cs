@@ -16,6 +16,7 @@ namespace Blog.Infrastructure.Data
         {
             _blogContext = blogContext;
         }
+
         public async Task<Post> Get(string id)
         {
             var post = await _blogContext.Posts
@@ -45,7 +46,7 @@ namespace Blog.Infrastructure.Data
             var posts = await _blogContext.Posts
                 .Find(Builders<Post>.Filter.Where(d => d.Published == published)).ToListAsync();
 
-            var postIds= posts.Select(d => d.Id).ToList();
+            var postIds = posts.Select(d => d.Id).ToList();
             var postRatings = await _blogContext.PostRatings.Find(d => postIds.Contains(d.PostId)).ToListAsync();
 
             var ratingsByPostId = postRatings.GroupBy(d => d.PostId);
@@ -55,10 +56,7 @@ namespace Blog.Infrastructure.Data
                 var postId = pr.Key;
                 var post = posts.FirstOrDefault(d => d.Id == postId);
 
-                if (post != null)
-                {
-                    post.Ratings = pr.ToList();
-                }
+                if (post != null) post.Ratings = pr.ToList();
             }
 
             return posts;

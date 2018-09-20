@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.Domain.Entities;
 using Blog.Domain.Repositories;
-using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Comment.Queries.GetCommentsForPost
@@ -22,7 +20,8 @@ namespace Blog.ApplicationCore.Features.Comment.Queries.GetCommentsForPost
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CommentDto>> Handle(GetCommentsForPostQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CommentDto>> Handle(GetCommentsForPostQuery request,
+            CancellationToken cancellationToken)
         {
             var comments = await _commentRepository.GetAll(request.PostId);
             var commentDtos = _mapper.Map<IEnumerable<Domain.Entities.Comment>, IEnumerable<CommentDto>>(comments);

@@ -2,17 +2,15 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.ApplicationCore.Common.Dto;
-using Blog.Domain.Entities;
 using Blog.Domain.Repositories;
-using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Post.Commands.CreatePost
 {
     public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, PostDto>
     {
-        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
+        private readonly IPostRepository _postRepository;
 
         public CreatePostCommandHandler(IPostRepository postRepository, IMapper mapper)
         {

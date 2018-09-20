@@ -1,9 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.PostUtils;
-using Blog.Domain.Entities;
 using Blog.Domain.Repositories;
-using Blog.Infrastructure.Data;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Post.Commands.RatePost
@@ -26,7 +24,7 @@ namespace Blog.ApplicationCore.Features.Post.Commands.RatePost
 
     public class RatePostCommand : IPostRequest, IRequest<Unit>
     {
-        public string PostId { get; set; }
         public int Rating { get; set; }
+        public string PostId { get; set; }
     }
 }
