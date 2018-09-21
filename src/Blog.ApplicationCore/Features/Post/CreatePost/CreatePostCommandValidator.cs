@@ -6,13 +6,13 @@ namespace Blog.ApplicationCore.Features.Post.CreatePost
     {
         public CreatePostCommandValidator()
         {
-            RuleFor(d => d.Post).SetValidator(new CreatePostDtoValidator());
+            RuleFor(d => d.Post).SetValidator(new CreatePostValidator());
         }
     }
 
-    public class CreatePostDtoValidator : AbstractValidator<CreatePostDto>
+    public class CreatePostValidator : AbstractValidator<CreatePostDto>
     {
-        public CreatePostDtoValidator()
+        public CreatePostValidator()
         {
             RuleFor(d => d.Body).NotEmpty();
             RuleFor(d => d.Author).NotEmpty();

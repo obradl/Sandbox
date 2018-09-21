@@ -11,6 +11,7 @@ using Blog.ApplicationCore.Features.Post.RatePost;
 using Blog.ApplicationCore.Features.Post.UnPublishPost;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using DeletePostCommand = Blog.ApplicationCore.Features.Post.GetSinglePost.DeletePostCommand;
 
 namespace Blog.WebApi.Controllers
 {
@@ -43,7 +44,7 @@ namespace Blog.WebApi.Controllers
         [HttpGet("{id}", Name = "GetSingle")]
         public async Task<ActionResult<PostDto>> GetSingle([FromRoute] string id)
         {
-            var posts = await _mediator.Send(new GetSinglePostQuery(id));
+            var posts = await _mediator.Send(new DeletePostCommand(id));
             return Ok(posts);
         }
 
@@ -117,7 +118,7 @@ namespace Blog.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute] string id)
         {
-            await _mediator.Send(new DeletePostCommand(id));
+            await _mediator.Send(new ApplicationCore.Features.Post.DeletePost.DeletePostCommand(id));
             return Ok();
         }
     }

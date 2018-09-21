@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace Blog.ApplicationCore.Features.Post.GetSinglePost
 {
-    public class GetSinglePostQueryHandler : IRequestHandler<GetSinglePostQuery, PostDto>
+    public class GetSinglePostQueryHandler : IRequestHandler<DeletePostCommand, PostDto>
     {
         private readonly IBlogContext _blogContext;
         private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ namespace Blog.ApplicationCore.Features.Post.GetSinglePost
             _mapper = mapper;
         }
 
-        public async Task<PostDto> Handle(GetSinglePostQuery request, CancellationToken cancellationToken)
+        public async Task<PostDto> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
             var existingPost = await _blogContext.Posts
                 .Find(d => d.Id == request.PostId)
@@ -34,11 +34,11 @@ namespace Blog.ApplicationCore.Features.Post.GetSinglePost
         }
     }
 
-    public class GetSinglePostQuery : IPostRequest, IRequest<PostDto>
+    public class DeletePostCommand : IPostRequest, IRequest<PostDto>
     {
         public string PostId { get;}
 
-        public GetSinglePostQuery(string postId)
+        public DeletePostCommand(string postId)
         {
             PostId = postId;
         }
