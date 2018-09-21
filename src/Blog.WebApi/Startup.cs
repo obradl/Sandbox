@@ -35,19 +35,12 @@ namespace Blog.WebApi
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
 
             services.AddScoped<IBlogContext, BlogContext>();
-
-            AssemblyScanner
-                .FindValidatorsInAssemblyContaining<CreatePostCommandValidator>()
-                .ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType));
-
-          
-
             services.AddMvc(options =>
                 {
                     options.Filters.Add<ExceptionFilter>();
                 })
-                //.AddFluentValidation(fvc =>
-                //    fvc.RegisterValidatorsFromAssemblyContaining<CreatePostCommandValidator>())
+                .AddFluentValidation(fvc =>
+                    fvc.RegisterValidatorsFromAssemblyContaining<CreatePostCommandValidator>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 
