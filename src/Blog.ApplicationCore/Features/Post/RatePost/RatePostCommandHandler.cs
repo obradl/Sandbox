@@ -5,7 +5,7 @@ using Blog.Domain.Entities;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Post.Commands.RatePost
+namespace Blog.ApplicationCore.Features.Post.RatePost
 {
     public class RatePostCommandHandler : IRequestHandler<RatePostCommand>
     {

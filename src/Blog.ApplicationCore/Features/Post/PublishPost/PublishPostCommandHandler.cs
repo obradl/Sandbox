@@ -7,29 +7,27 @@ using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
 
-namespace Blog.ApplicationCore.Features.Post.Commands.EditPost
+namespace Blog.ApplicationCore.Features.Post.PublishPost
 {
-    public class EditPostCommandHandler : IRequestHandler<EditPostCommand, PostDto>
+    public class PublishPostCommandHandler : IRequestHandler<PublishPostCommand, PostDto>
     {
         private readonly IBlogContext _blogContext;
         private readonly IMapper _mapper;
 
-        public EditPostCommandHandler(IBlogContext blogContext, IMapper mapper)
+
+        public PublishPostCommandHandler(IBlogContext blogContext, IMapper mapper)
         {
             _blogContext = blogContext;
             _mapper = mapper;
         }
 
-        public async Task<PostDto> Handle(EditPostCommand request, CancellationToken cancellationToken)
+        public async Task<PostDto> Handle(PublishPostCommand request, CancellationToken cancellationToken)
         {
             var existingPost = await _blogContext.Posts
                 .Find(d => d.Id == request.PostId)
                 .FirstOrDefaultAsync(CancellationToken.None);
 
-            existingPost.SetAuthor(request.Post.Author);
-            existingPost.SetBody(request.Post.Body);
-            existingPost.SetLead(request.Post.Lead);
-            existingPost.SetTitle(request.Post.Title);
+            existingPost.Publish();
 
             await _blogContext.Posts.ReplaceOneAsync(r => r.Id == request.PostId, existingPost,
                 cancellationToken: cancellationToken);
@@ -43,9 +41,8 @@ namespace Blog.ApplicationCore.Features.Post.Commands.EditPost
         }
     }
 
-    public class EditPostCommand : IPostRequest, IRequest<PostDto>
+    public class PublishPostCommand : IPostRequest, IRequest<PostDto>
     {
-        public EditPostDto Post { get; set; }
         public string PostId { get; set; }
     }
 }

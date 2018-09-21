@@ -6,7 +6,7 @@ using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
 
-namespace Blog.ApplicationCore.Features.Post.Commands.CreatePost
+namespace Blog.ApplicationCore.Features.Post.CreatePost
 {
     public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, PostDto>
     {

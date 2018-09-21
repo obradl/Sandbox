@@ -5,7 +5,7 @@ using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
 
-namespace Blog.ApplicationCore.Features.Post.Commands.DeletePost
+namespace Blog.ApplicationCore.Features.Post.DeletePost
 {
     public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
     {

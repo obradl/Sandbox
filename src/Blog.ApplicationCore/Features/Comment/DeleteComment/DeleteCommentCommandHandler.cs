@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Blog.Infrastructure.Data;
 using MediatR;
 
-namespace Blog.ApplicationCore.Features.Comment.Commands.DeleteComment
+namespace Blog.ApplicationCore.Features.Comment.DeleteComment
 {
     public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand>
     {

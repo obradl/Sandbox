@@ -8,7 +8,7 @@ using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
 
-namespace Blog.ApplicationCore.Features.Comment.Queries.GetCommentsForPost
+namespace Blog.ApplicationCore.Features.Comment.GetCommentsForPost
 {
     public class GetCommentsForPostQueryHandler : IRequestHandler<GetCommentsForPostQuery, IEnumerable<CommentDto>>
     {

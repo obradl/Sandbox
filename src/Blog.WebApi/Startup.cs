@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 using AutoMapper;
-using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
+using Blog.ApplicationCore.Features.Post.CreatePost;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using Blog.WebApi.Middleware;

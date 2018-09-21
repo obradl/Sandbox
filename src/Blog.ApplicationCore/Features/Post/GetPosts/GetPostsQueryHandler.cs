@@ -8,7 +8,7 @@ using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
 
-namespace Blog.ApplicationCore.Features.Post.Queries.GetPosts
+namespace Blog.ApplicationCore.Features.Post.GetPosts
 {
     public class GetPostsQueryHandler : IRequestHandler<GetPostsQuery, IEnumerable<PostDto>>
     {

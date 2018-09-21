@@ -7,7 +7,7 @@ using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
 
-namespace Blog.ApplicationCore.Features.Post.Commands.UnPublishPost
+namespace Blog.ApplicationCore.Features.Post.UnPublishPost
 {
     public class UnPublishPostCommandHandler : IRequestHandler<UnPublishPostCommand, PostDto>
     {

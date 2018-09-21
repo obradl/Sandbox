@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Common.Dto;
-using Blog.ApplicationCore.Features.Post.Commands.CreatePost;
-using Blog.ApplicationCore.Features.Post.Commands.DeletePost;
-using Blog.ApplicationCore.Features.Post.Commands.EditPost;
-using Blog.ApplicationCore.Features.Post.Commands.PublishPost;
-using Blog.ApplicationCore.Features.Post.Commands.RatePost;
-using Blog.ApplicationCore.Features.Post.Commands.UnPublishPost;
-using Blog.ApplicationCore.Features.Post.Queries.GetPosts;
-using Blog.ApplicationCore.Features.Post.Queries.GetSinglePost;
+using Blog.ApplicationCore.Features.Post.CreatePost;
+using Blog.ApplicationCore.Features.Post.DeletePost;
+using Blog.ApplicationCore.Features.Post.EditPost;
+using Blog.ApplicationCore.Features.Post.GetPosts;
+using Blog.ApplicationCore.Features.Post.GetSinglePost;
+using Blog.ApplicationCore.Features.Post.PublishPost;
+using Blog.ApplicationCore.Features.Post.RatePost;
+using Blog.ApplicationCore.Features.Post.UnPublishPost;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

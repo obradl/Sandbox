@@ -7,7 +7,7 @@ using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
 
-namespace Blog.ApplicationCore.Features.Post.Queries.GetSinglePost
+namespace Blog.ApplicationCore.Features.Post.GetSinglePost
 {
     public class GetSinglePostQueryHandler : IRequestHandler<GetSinglePostQuery, PostDto>
     {
