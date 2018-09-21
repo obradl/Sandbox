@@ -2,6 +2,6 @@
 {
     public interface IPostRequest
     {
-        string PostId { get; set; }
+        string PostId { get; }
     }
 }

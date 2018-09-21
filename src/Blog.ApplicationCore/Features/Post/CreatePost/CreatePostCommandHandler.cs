@@ -45,6 +45,11 @@ namespace Blog.ApplicationCore.Features.Post.CreatePost
 
     public class CreatePostCommand : IRequest<PostDto>
     {
-        public CreatePostDto Post { get; set; }
+        public CreatePostDto Post { get; }
+
+        public CreatePostCommand(CreatePostDto post)
+        {
+            Post = post;
+        }
     }
 }

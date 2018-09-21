@@ -29,12 +29,7 @@ namespace Blog.WebApi.Controllers
         [HttpPost("~/api/posts/{postId}/comments")]
         public async Task<ActionResult<CommentDto>> Post([FromBody] CreateCommentDto comment, [FromRoute] string postId)
         {
-            var createdComment = await _mediator.Send(new CreateCommentCommand
-            {
-                PostId = postId,
-                Comment = comment
-            });
-
+            var createdComment = await _mediator.Send(new CreateCommentCommand(postId, comment));
             return Ok(createdComment);
         }
 
@@ -45,7 +40,7 @@ namespace Blog.WebApi.Controllers
         [HttpGet("~/api/posts/{postId}/comments")]
         public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsForPost([FromRoute] string postId)
         {
-            var comments = await _mediator.Send(new GetCommentsForPostQuery {PostId = postId});
+            var comments = await _mediator.Send(new GetCommentsForPostQuery(postId));
             return Ok(comments);
         }
 
@@ -57,7 +52,7 @@ namespace Blog.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute] string id)
         {
-            await _mediator.Send(new DeleteCommentCommand {CommentId = id});
+            await _mediator.Send(new DeleteCommentCommand(id));
             return Ok();
         }
     }

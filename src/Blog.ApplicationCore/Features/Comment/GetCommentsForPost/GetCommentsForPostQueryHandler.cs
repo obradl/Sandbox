@@ -35,6 +35,11 @@ namespace Blog.ApplicationCore.Features.Comment.GetCommentsForPost
 
     public class GetCommentsForPostQuery : IPostRequest, IRequest<IEnumerable<CommentDto>>
     {
-        public string PostId { get; set; }
+        public string PostId { get; }
+
+        public GetCommentsForPostQuery(string postId)
+        {
+            PostId = postId;
+        }
     }
 }

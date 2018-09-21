@@ -45,7 +45,14 @@ namespace Blog.ApplicationCore.Features.Post.EditPost
 
     public class EditPostCommand : IPostRequest, IRequest<PostDto>
     {
-        public EditPostDto Post { get; set; }
-        public string PostId { get; set; }
+        public EditPostDto Post { get;}
+        public string PostId { get;}
+
+        public EditPostCommand(string postId, EditPostDto post)
+        {
+            PostId = postId;
+            Post = post;
+        }
+
     }
 }

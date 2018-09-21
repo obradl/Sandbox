@@ -42,6 +42,11 @@ namespace Blog.ApplicationCore.Features.Post.UnPublishPost
 
     public class UnPublishPostCommand : IPostRequest, IRequest<PostDto>
     {
-        public string PostId { get; set; }
+        public string PostId { get; }
+
+        public UnPublishPostCommand(string postId)
+        {
+            PostId = postId;
+        }
     }
 }

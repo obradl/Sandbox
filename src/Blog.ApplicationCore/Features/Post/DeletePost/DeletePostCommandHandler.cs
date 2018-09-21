@@ -25,6 +25,10 @@ namespace Blog.ApplicationCore.Features.Post.DeletePost
 
     public class DeletePostCommand : IPostRequest, IRequest<Unit>
     {
-        public string PostId { get; set; }
+        public DeletePostCommand(string postId)
+        {
+            PostId = postId;
+        }
+        public string PostId { get; }
     }
 }

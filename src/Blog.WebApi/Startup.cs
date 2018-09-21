@@ -2,13 +2,17 @@
 using System.IO;
 using System.Reflection;
 using AutoMapper;
+using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using Blog.WebApi.Middleware;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,13 +35,27 @@ namespace Blog.WebApi
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
 
             services.AddScoped<IBlogContext, BlogContext>();
-            //services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatePostExistsPipelineBehavior<,>));
 
-            services.AddMvc(options => { options.Filters.Add<ExceptionFilter>(); })
+            AssemblyScanner
+                .FindValidatorsInAssemblyContaining<CreatePostCommandValidator>()
+                .ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType));
+
+          
+
+            services.AddMvc(options =>
+                {
+                    options.Filters.Add<ExceptionFilter>();
+                })
+                //.AddFluentValidation(fvc =>
+                //    fvc.RegisterValidatorsFromAssemblyContaining<CreatePostCommandValidator>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddAutoMapper();
+
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
             services.AddMediatR(typeof(CreatePostCommandHandler).GetTypeInfo().Assembly);
+
+            services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
@@ -52,6 +70,24 @@ namespace Blog.WebApi
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+
+                services.Configure<ApiBehaviorOptions>(options =>
+                {
+                    options.InvalidModelStateResponseFactory = context =>
+                    {
+                        var problemDetails = new ValidationProblemDetails(context.ModelState)
+                        {
+                            Instance = context.HttpContext.Request.Path,
+                            Status = StatusCodes.Status400BadRequest,
+                            Detail = "Please refer to the errors property for additional details."
+                        };
+
+                        return new BadRequestObjectResult(problemDetails)
+                        {
+                            ContentTypes = { "application/problem+json", "application/problem+xml" }
+                        };
+                    };
+                });
             });
         }
 

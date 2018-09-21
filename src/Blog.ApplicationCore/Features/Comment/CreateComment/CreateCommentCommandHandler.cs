@@ -30,7 +30,13 @@ namespace Blog.ApplicationCore.Features.Comment.CreateComment
 
     public class CreateCommentCommand : IRequest<CommentDto>
     {
-        public CreateCommentDto Comment { get; set; }
-        public string PostId { get; set; }
+        public CreateCommentDto Comment { get; }
+        public string PostId { get; }
+
+        public CreateCommentCommand(string postId, CreateCommentDto comment)
+        {
+            PostId = postId;
+            Comment = comment;
+        }
     }
 }

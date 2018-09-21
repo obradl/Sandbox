@@ -42,7 +42,11 @@ namespace Blog.ApplicationCore.Features.Post.PublishPost
     }
 
     public class PublishPostCommand : IPostRequest, IRequest<PostDto>
-    {
-        public string PostId { get; set; }
+    { 
+        public string PostId { get; }
+        public PublishPostCommand(string id)
+        {
+            PostId = id;
+        }
     }
 }

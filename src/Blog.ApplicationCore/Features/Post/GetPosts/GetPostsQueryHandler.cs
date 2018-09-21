@@ -51,6 +51,11 @@ namespace Blog.ApplicationCore.Features.Post.GetPosts
 
     public class GetPostsQuery : IRequest<IEnumerable<PostDto>>
     {
-        public bool PublishedOnly { get; set; }
+        public bool PublishedOnly { get;}
+
+        public GetPostsQuery(bool publishedOnly)
+        {
+            PublishedOnly = publishedOnly;
+        }
     }
 }

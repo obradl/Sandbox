@@ -36,6 +36,11 @@ namespace Blog.ApplicationCore.Features.Post.GetSinglePost
 
     public class GetSinglePostQuery : IPostRequest, IRequest<PostDto>
     {
-        public string PostId { get; set; }
+        public string PostId { get;}
+
+        public GetSinglePostQuery(string postId)
+        {
+            PostId = postId;
+        }
     }
 }

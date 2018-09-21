@@ -31,7 +31,7 @@ namespace Blog.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PostDto>>> Get([FromQuery] bool published = false)
         {
-            var posts = await _mediator.Send(new GetPostsQuery {PublishedOnly = published});
+            var posts = await _mediator.Send(new GetPostsQuery(published));
             return Ok(posts);
         }
 
@@ -43,7 +43,7 @@ namespace Blog.WebApi.Controllers
         [HttpGet("{id}", Name = "GetSingle")]
         public async Task<ActionResult<PostDto>> GetSingle([FromRoute] string id)
         {
-            var posts = await _mediator.Send(new GetSinglePostQuery {PostId = id});
+            var posts = await _mediator.Send(new GetSinglePostQuery(id));
             return Ok(posts);
         }
 
@@ -55,7 +55,7 @@ namespace Blog.WebApi.Controllers
         [HttpPut("{id}/publish")]
         public async Task<ActionResult<PostDto>> Publish([FromRoute] string id)
         {
-            var publishedPost = await _mediator.Send(new PublishPostCommand {PostId = id});
+            var publishedPost = await _mediator.Send(new PublishPostCommand(id));
             return Ok(publishedPost);
         }
 
@@ -68,7 +68,7 @@ namespace Blog.WebApi.Controllers
         [HttpPut("{id}/rate")]
         public async Task<ActionResult> Rate([FromRoute] string id, [FromBody] int rating)
         {
-            await _mediator.Send(new RatePostCommand {PostId = id, Rating = rating});
+            await _mediator.Send(new RatePostCommand(id, rating));
             return Ok();
         }
 
@@ -80,7 +80,7 @@ namespace Blog.WebApi.Controllers
         [HttpPut("{id}/unpublish")]
         public async Task<ActionResult<PostDto>> UnPublish([FromRoute] string id)
         {
-            var publishedPost = await _mediator.Send(new UnPublishPostCommand {PostId = id});
+            var publishedPost = await _mediator.Send(new UnPublishPostCommand(id));
             return Ok(publishedPost);
         }
 
@@ -92,7 +92,7 @@ namespace Blog.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<PostDto>> Post([FromBody] CreatePostDto post)
         {
-            var createdPost = await _mediator.Send(new CreatePostCommand {Post = post});
+            var createdPost = await _mediator.Send(new CreatePostCommand(post));
             return CreatedAtRoute("GetSingle", new {createdPost.Id}, createdPost);
         }
 
@@ -105,7 +105,7 @@ namespace Blog.WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<PostDto>> Put([FromBody] EditPostDto post, [FromRoute] string id)
         {
-            var updatedPost = await _mediator.Send(new EditPostCommand {Post = post, PostId = id});
+            var updatedPost = await _mediator.Send(new EditPostCommand(id, post));
             return Ok(updatedPost);
         }
 
@@ -117,7 +117,7 @@ namespace Blog.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute] string id)
         {
-            await _mediator.Send(new DeletePostCommand {PostId = id});
+            await _mediator.Send(new DeletePostCommand(id));
             return Ok();
         }
     }
