@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Net;
 using Blog.ApplicationCore.Common;
 using Blog.Domain;
 using FluentValidation;
@@ -18,7 +17,7 @@ namespace Blog.WebApi.Filters
                 case EntityDoesNotExistsException ex:
                     context.Result = new NotFoundObjectResult(ex.Message);
                     break;
-                case BlogDomainException ex:
+                case BlogDomainException _:
                     var problemDetails = new ValidationProblemDetails()
                     {
                         Instance = context.HttpContext.Request.Path,
@@ -26,12 +25,12 @@ namespace Blog.WebApi.Filters
                         Detail = "Please refer to the errors property for additional details."
                     };
 
-                    var ex2 = context.Exception.InnerException as ValidationException;
-                    var h = ex2.Errors.Select(d => d.ErrorMessage).ToArray();
-                    problemDetails.Errors.Add("DomainValidations", h);
+                    var validationException = context.Exception.InnerException as ValidationException;
+                    var errors = validationException.Errors.Select(d => d.ErrorMessage).ToArray();
+                    problemDetails.Errors.Add("Domain validation errors", errors);
 
                     context.Result = new BadRequestObjectResult(problemDetails);
-                    context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
                     break;
             }
         }
