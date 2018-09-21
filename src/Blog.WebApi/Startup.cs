@@ -57,30 +57,31 @@ namespace Blog.WebApi
                         Title = "Blog API", Version = "v1",
                         Description = "An API made with .Net core 2.1," +
                                       " Swashbuckle/Swagger, MediatR, MongoDb," +
-                                      " FluentValidation, XUnit, Moq, AutoMapper, DDD-ish, command pattern "
+                                      " FluentValidation, XUnit, Moq, AutoMapper, " +
+                                      "DDD-ish, command pattern"
                     });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+            });
 
-                services.Configure<ApiBehaviorOptions>(options =>
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
                 {
-                    options.InvalidModelStateResponseFactory = context =>
+                    var problemDetails = new ValidationProblemDetails(context.ModelState)
                     {
-                        var problemDetails = new ValidationProblemDetails(context.ModelState)
-                        {
-                            Instance = context.HttpContext.Request.Path,
-                            Status = StatusCodes.Status400BadRequest,
-                            Detail = "Please refer to the errors property for additional details."
-                        };
-
-                        return new BadRequestObjectResult(problemDetails)
-                        {
-                            ContentTypes = { "application/problem+json", "application/problem+xml" }
-                        };
+                        Instance = context.HttpContext.Request.Path,
+                        Status = StatusCodes.Status400BadRequest,
+                        Detail = "Please refer to the errors property for additional details."
                     };
-                });
+
+                    return new BadRequestObjectResult(problemDetails)
+                    {
+                        ContentTypes = { "application/problem+json", "application/problem+xml" }
+                    };
+                };
             });
         }
 
