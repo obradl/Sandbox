@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Features.Post.CreatePost;
+using Blog.ApplicationCore.Features.Post.Dto;
 using Blog.ApplicationCore.Features.Post.EditPost;
 using Blog.ApplicationCore.Features.Post.GetPosts;
 using Blog.ApplicationCore.Features.Post.GetSinglePost;

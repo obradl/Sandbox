@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Features.Comment.CreateComment;
 using Blog.ApplicationCore.Features.Comment.DeleteComment;
+using Blog.ApplicationCore.Features.Comment.Dto;
 using Blog.ApplicationCore.Features.Comment.GetCommentsForPost;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
