@@ -18,7 +18,7 @@ namespace Blog.WebApi.Filters
                     context.Result = new NotFoundObjectResult(ex.Message);
                     break;
                 case BlogDomainException _:
-                    var problemDetails = new ValidationProblemDetails()
+                    var problemDetails = new ValidationProblemDetails
                     {
                         Instance = context.HttpContext.Request.Path,
                         Status = StatusCodes.Status400BadRequest,

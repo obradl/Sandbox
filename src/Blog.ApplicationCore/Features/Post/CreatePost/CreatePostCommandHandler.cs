@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.ApplicationCore.Common.Dto;
+using Blog.ApplicationCore.Features.Post.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
@@ -45,11 +45,11 @@ namespace Blog.ApplicationCore.Features.Post.CreatePost
 
     public class CreatePostCommand : IRequest<PostDto>
     {
-        public CreatePostDto Post { get; }
-
         public CreatePostCommand(CreatePostDto post)
         {
             Post = post;
         }
+
+        public CreatePostDto Post { get; }
     }
 }

@@ -12,9 +12,12 @@ namespace Blog.ApplicationCore.Behaviors
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-        public ValidatorBehavior(IEnumerable<IValidator<TRequest>> validators) => _validators = validators;
+        public ValidatorBehavior(IEnumerable<IValidator<TRequest>> validators)
+        {
+            _validators = validators;
+        }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, 
+        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
             var failures = _validators
@@ -24,11 +27,9 @@ namespace Blog.ApplicationCore.Behaviors
                 .ToList();
 
             if (failures.Any())
-            {
                 throw new BlogDomainException(
                     $"Command Validation Errors for type {typeof(TRequest).Name}",
                     new ValidationException("Validation exception", failures));
-            }
 
             var response = await next();
             return response;

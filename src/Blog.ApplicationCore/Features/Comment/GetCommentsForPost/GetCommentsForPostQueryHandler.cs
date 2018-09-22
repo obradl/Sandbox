@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Common.PostUtils;
+using Blog.ApplicationCore.Features.Comment.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
@@ -35,11 +35,11 @@ namespace Blog.ApplicationCore.Features.Comment.GetCommentsForPost
 
     public class GetCommentsForPostQuery : IPostRequest, IRequest<IEnumerable<CommentDto>>
     {
-        public string PostId { get; }
-
         public GetCommentsForPostQuery(string postId)
         {
             PostId = postId;
         }
+
+        public string PostId { get; }
     }
 }

@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
-using Blog.ApplicationCore.Common.Dto;
-using Blog.Domain.Entities;
+using Blog.ApplicationCore.Features.Post.Dto;
 
-namespace Blog.ApplicationCore.Common.Mapping
+namespace Blog.ApplicationCore.Features.Post.Mapping
 {
     public class PostMappingProfile : Profile
     {
         public PostMappingProfile()
         {
-            CreateMap<Post, PostDto>()
+            CreateMap<Domain.Entities.Post, PostDto>()
                 .ForMember(d => d.Rating, opt => opt.MapFrom(d => d.CalculateAverageRating()));
         }
     }

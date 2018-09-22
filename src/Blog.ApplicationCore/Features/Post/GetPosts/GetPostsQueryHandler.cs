@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.ApplicationCore.Common.Dto;
+using Blog.ApplicationCore.Features.Post.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
@@ -51,11 +51,11 @@ namespace Blog.ApplicationCore.Features.Post.GetPosts
 
     public class GetPostsQuery : IRequest<IEnumerable<PostDto>>
     {
-        public bool PublishedOnly { get;}
-
         public GetPostsQuery(bool publishedOnly)
         {
             PublishedOnly = publishedOnly;
         }
+
+        public bool PublishedOnly { get; }
     }
 }

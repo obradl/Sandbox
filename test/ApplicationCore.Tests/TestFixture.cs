@@ -1,6 +1,6 @@
 using System.Reflection;
 using AutoMapper;
-using Blog.ApplicationCore.Common.Mapping;
+using Blog.ApplicationCore.Features.Post.Mapping;
 
 namespace ApplicationCore.Tests
 {

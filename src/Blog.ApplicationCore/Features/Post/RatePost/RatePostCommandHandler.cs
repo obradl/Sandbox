@@ -27,13 +27,13 @@ namespace Blog.ApplicationCore.Features.Post.RatePost
 
     public class RatePostCommand : IPostRequest, IRequest<Unit>
     {
-        public int Rating { get;}
-        public string PostId { get; }
-
         public RatePostCommand(string postId, int rating)
         {
             PostId = postId;
             Rating = rating;
         }
+
+        public int Rating { get; }
+        public string PostId { get; }
     }
 }

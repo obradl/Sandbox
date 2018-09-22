@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Features.Post.CreatePost;
-using Blog.ApplicationCore.Features.Post.DeletePost;
 using Blog.ApplicationCore.Features.Post.EditPost;
 using Blog.ApplicationCore.Features.Post.GetPosts;
 using Blog.ApplicationCore.Features.Post.GetSinglePost;
@@ -11,7 +9,6 @@ using Blog.ApplicationCore.Features.Post.RatePost;
 using Blog.ApplicationCore.Features.Post.UnPublishPost;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using DeletePostCommand = Blog.ApplicationCore.Features.Post.GetSinglePost.DeletePostCommand;
 
 namespace Blog.WebApi.Controllers
 {

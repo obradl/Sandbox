@@ -23,11 +23,11 @@ namespace Blog.ApplicationCore.Features.Comment.DeleteComment
 
     public class DeleteCommentCommand : IRequest
     {
-        public string CommentId { get; }
-
         public DeleteCommentCommand(string commentId)
         {
             CommentId = commentId;
         }
+
+        public string CommentId { get; }
     }
 }

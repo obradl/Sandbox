@@ -8,6 +8,16 @@ namespace Blog.Domain.Entities
 {
     public class Post
     {
+        public Post(string title, string author, string body, string lead)
+        {
+            Title = title;
+            Author = author;
+            Body = body;
+            Lead = lead;
+            DateCreated = DateTime.Now;
+            SetUpdatedTime();
+        }
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
@@ -73,16 +83,6 @@ namespace Blog.Domain.Entities
         private void SetUpdatedTime()
         {
             Updated = DateTime.Now;
-        }
-
-        public Post(string title, string author, string body, string lead)
-        {
-            Title = title;
-            Author = author;
-            Body = body;
-            Lead = lead;
-            DateCreated = DateTime.Now;
-            SetUpdatedTime();
         }
     }
 }

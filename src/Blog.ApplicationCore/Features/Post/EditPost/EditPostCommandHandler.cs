@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.ApplicationCore.Common.Dto;
 using Blog.ApplicationCore.Common.PostUtils;
+using Blog.ApplicationCore.Features.Post.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
@@ -45,14 +45,13 @@ namespace Blog.ApplicationCore.Features.Post.EditPost
 
     public class EditPostCommand : IPostRequest, IRequest<PostDto>
     {
-        public EditPostDto Post { get;}
-        public string PostId { get;}
-
         public EditPostCommand(string postId, EditPostDto post)
         {
             PostId = postId;
             Post = post;
         }
 
+        public EditPostDto Post { get; }
+        public string PostId { get; }
     }
 }

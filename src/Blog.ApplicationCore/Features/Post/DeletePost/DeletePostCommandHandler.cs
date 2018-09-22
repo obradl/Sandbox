@@ -29,6 +29,7 @@ namespace Blog.ApplicationCore.Features.Post.DeletePost
         {
             PostId = postId;
         }
+
         public string PostId { get; }
     }
 }

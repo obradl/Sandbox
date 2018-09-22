@@ -5,6 +5,12 @@ namespace Blog.Domain.Entities
 {
     public class PostRating
     {
+        public PostRating(string postId, int rating)
+        {
+            Rating = rating;
+            PostId = postId;
+        }
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
@@ -13,11 +19,5 @@ namespace Blog.Domain.Entities
         public string PostId { get; }
 
         public int Rating { get; }
-
-        public PostRating(string postId, int rating)
-        {
-            Rating = rating;
-            PostId = postId;
-        }
     }
 }

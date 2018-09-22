@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.ApplicationCore.Common.Dto;
+using Blog.ApplicationCore.Features.Comment.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 
@@ -30,13 +30,13 @@ namespace Blog.ApplicationCore.Features.Comment.CreateComment
 
     public class CreateCommentCommand : IRequest<CommentDto>
     {
-        public CreateCommentDto Comment { get; }
-        public string PostId { get; }
-
         public CreateCommentCommand(string postId, CreateCommentDto comment)
         {
             PostId = postId;
             Comment = comment;
         }
+
+        public CreateCommentDto Comment { get; }
+        public string PostId { get; }
     }
 }

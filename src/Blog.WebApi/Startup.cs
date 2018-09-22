@@ -7,7 +7,6 @@ using Blog.ApplicationCore.Features.Post.CreatePost;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using Blog.WebApi.Middleware;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -35,10 +34,7 @@ namespace Blog.WebApi
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
 
             services.AddScoped<IBlogContext, BlogContext>();
-            services.AddMvc(options =>
-                {
-                    options.Filters.Add<ExceptionFilter>();
-                })
+            services.AddMvc(options => { options.Filters.Add<ExceptionFilter>(); })
                 .AddFluentValidation(fvc =>
                     fvc.RegisterValidatorsFromAssemblyContaining<CreatePostCommandValidator>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -79,7 +75,7 @@ namespace Blog.WebApi
 
                     return new BadRequestObjectResult(problemDetails)
                     {
-                        ContentTypes = { "application/problem+json", "application/problem+xml" }
+                        ContentTypes = {"application/problem+json", "application/problem+xml"}
                     };
                 };
             });
