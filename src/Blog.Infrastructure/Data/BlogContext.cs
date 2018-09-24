@@ -12,13 +12,13 @@ namespace Blog.Infrastructure.Data
 
         public BlogContext(IOptions<MongoDbSettings> settings)
         {
-            var mongoClientSettings = MongoClientSettings.FromUrl(
+            var clientSettings = MongoClientSettings.FromUrl(
                 new MongoUrl(settings.Value.ConnectionString));
 
-            mongoClientSettings.SslSettings =
+            clientSettings.SslSettings =
                 new SslSettings {EnabledSslProtocols = SslProtocols.Tls12};
 
-            var client = new MongoClient(mongoClientSettings);
+            var client = new MongoClient(clientSettings);
             _database = client.GetDatabase(settings.Value.Database);
 
             var conventionPack = new ConventionPack {new CamelCaseElementNameConvention()};
@@ -26,9 +26,7 @@ namespace Blog.Infrastructure.Data
         }
 
         public IMongoCollection<Post> Posts => _database.GetCollection<Post>("Post");
-
         public IMongoCollection<Comment> Comments => _database.GetCollection<Comment>("Comment");
-
         public IMongoCollection<PostRating> PostRatings => _database.GetCollection<PostRating>("PostRating");
     }
 }

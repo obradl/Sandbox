@@ -4,7 +4,6 @@ using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
-using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using Blog.WebApi.Middleware;
@@ -39,7 +38,6 @@ namespace Blog.WebApi
                 .AddFluentValidation(fvc =>
                     fvc.RegisterValidatorsFromAssemblyContaining<CreatePostCommandValidator>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
 
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatePostExistence<,>));
@@ -82,7 +80,6 @@ namespace Blog.WebApi
                 };
             });
         }
-
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
