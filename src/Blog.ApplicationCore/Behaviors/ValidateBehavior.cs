@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Blog.Domain;
 using FluentValidation;
 using MediatR;
+using ValidationException = Blog.Domain.Exceptions.ValidationException;
 
 namespace Blog.ApplicationCore.Behaviors
 {
@@ -28,7 +29,7 @@ namespace Blog.ApplicationCore.Behaviors
 
             if (failures.Any())
             {
-                throw new BlogValidationException($"Validation Errors for type {typeof(TRequest).Name}", 
+                throw new ValidationException($"Validation Errors for type {typeof(TRequest).Name}", 
                     failures.Select(d=>d.ErrorMessage));
             }
               

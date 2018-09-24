@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blog.ApplicationCore.Common
+namespace Blog.Domain.Exceptions
 {
     public class EntityDoesNotExistsException : Exception
     {
