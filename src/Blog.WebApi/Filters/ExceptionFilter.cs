@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Blog.ApplicationCore.Common;
 using Blog.Domain;
-using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -14,10 +13,10 @@ namespace Blog.WebApi.Filters
         {
             switch (context.Exception)
             {
-                case EntityDoesNotExistsException ex:
-                    context.Result = new NotFoundObjectResult(ex.Message);
+                case EntityDoesNotExistsException exception:
+                    context.Result = new NotFoundObjectResult(exception.Message);
                     break;
-                case BlogDomainException _:
+                case BlogValidationException exception:
                     var problemDetails = new ValidationProblemDetails
                     {
                         Instance = context.HttpContext.Request.Path,
@@ -25,9 +24,7 @@ namespace Blog.WebApi.Filters
                         Detail = "Please refer to the errors property for additional details."
                     };
 
-                    var validationException = context.Exception.InnerException as ValidationException;
-                    var errors = validationException.Errors.Select(d => d.ErrorMessage).ToArray();
-                    problemDetails.Errors.Add("Domain validation errors", errors);
+                    problemDetails.Errors.Add("Domain validation errors", exception.Errors.ToArray());
 
                     context.Result = new BadRequestObjectResult(problemDetails);
                     context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;

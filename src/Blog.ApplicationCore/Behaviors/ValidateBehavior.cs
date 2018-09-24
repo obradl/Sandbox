@@ -27,10 +27,11 @@ namespace Blog.ApplicationCore.Behaviors
                 .ToList();
 
             if (failures.Any())
-                throw new BlogDomainException(
-                    $"Command Validation Errors for type {typeof(TRequest).Name}",
-                    new ValidationException("Validation exception", failures));
-
+            {
+                throw new BlogValidationException($"Validation Errors for type {typeof(TRequest).Name}", 
+                    failures.Select(d=>d.ErrorMessage));
+            }
+              
             var response = await next();
             return response;
         }

@@ -17,5 +17,6 @@ namespace Blog.Domain
             : base(message, innerException)
         {
         }
-    }
+
+     }
 }
