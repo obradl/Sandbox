@@ -41,7 +41,7 @@ namespace Blog.WebApi
 
 
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateBehavior<,>));
             services.AddMediatR(typeof(CreatePostCommandHandler).GetTypeInfo().Assembly);
 
             services.AddAutoMapper();

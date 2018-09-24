@@ -8,11 +8,11 @@ using MediatR;
 
 namespace Blog.ApplicationCore.Behaviors
 {
-    public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class ValidateBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-        public ValidatorBehavior(IEnumerable<IValidator<TRequest>> validators)
+        public ValidateBehavior(IEnumerable<IValidator<TRequest>> validators)
         {
             _validators = validators;
         }
