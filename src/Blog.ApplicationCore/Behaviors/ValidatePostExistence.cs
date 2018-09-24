@@ -22,24 +22,29 @@ namespace Blog.ApplicationCore.Behaviors
 
         public async Task<TResponse> Handle(IPostRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            Domain.Entities.Post post;
+            Domain.Entities.Post post = null;
             try
             {
                 post = await _blogContext.Posts
                     .Find(d => d.Id == request.PostId)
                     .FirstOrDefaultAsync(cancellationToken);
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
-                throw new EntityDoesNotExistsException($"The post with id {request.PostId} does not exist.");
+                ThrowEntityDoesNotExistsException(request);
             }
             if (post == null)
             {
-                throw new EntityDoesNotExistsException($"The post with id {request.PostId} does not exist.");
+                ThrowEntityDoesNotExistsException(request);
             }
 
             var response = await next();
             return response;
+        }
+
+        private static void ThrowEntityDoesNotExistsException(IPostRequest request)
+        {
+            throw new EntityDoesNotExistsException($"The post with id {request.PostId} does not exist.");
         }
     }
 }

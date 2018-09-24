@@ -2,10 +2,10 @@
 
 namespace Blog.Domain.Exceptions
 {
-    public class ValidationException : DomainException
+    public class DomainValidationException : DomainException
     {
         public IEnumerable<string> Errors { get; }
-        public ValidationException(string s, IEnumerable<string> errors)
+        public DomainValidationException(string s, IEnumerable<string> errors)
         {
             Errors = errors;
         }
