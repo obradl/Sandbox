@@ -1,1 +1,1 @@
-An WebAPI made with .Net core 2.2, Swashbuckle/Swagger, MediatR, MongoDb, FluentValidation, XUnit, Moq, AutoMapper, DDD, CQRS,  command pattern
+An WebAPI made with .Net core 2.2, Swashbuckle/Swagger, MediatR, MongoDb, FluentValidation, XUnit, Moq, AutoMapper, DDD, CQRS,  command pattern, Health Checks
