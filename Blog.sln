@@ -12,9 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{850AD9A0-9612-4DE5-96A1-4DA2EC4B9082}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{63697144-2BD4-4729-82DA-22DB6AC7F185}"
-	ProjectSection(SolutionItems) = preProject
-		src\Blog.ApplicationCore\Features\Post\BaseRequestHandler.cs = src\Blog.ApplicationCore\Features\Post\BaseRequestHandler.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationCore.Tests", "test\ApplicationCore.Tests\ApplicationCore.Tests.csproj", "{336B7948-D6E5-4786-B76C-20DC12D84675}"
 EndProject

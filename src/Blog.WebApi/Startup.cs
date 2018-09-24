@@ -51,10 +51,6 @@ namespace Blog.WebApi
                     new Info
                     {
                         Title = "Blog API", Version = "v1",
-                        Description = "An API made with .Net core 2.1," +
-                                      " Swashbuckle/Swagger, MediatR, MongoDb," +
-                                      " FluentValidation, XUnit, Moq, AutoMapper, " +
-                                      "DDD-ish, CQRS,  command pattern"
                     });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
