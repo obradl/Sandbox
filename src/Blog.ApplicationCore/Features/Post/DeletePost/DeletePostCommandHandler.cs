@@ -1,13 +1,15 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
-using Blog.ApplicationCore.Common.PostUtils;
+using Blog.ApplicationCore.Features.Post.PostUtils;
+using Blog.Domain.Exceptions;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
 
 namespace Blog.ApplicationCore.Features.Post.DeletePost
 {
-    public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
+    public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand, Unit>
     {
         private readonly IBlogContext _blogContext;
 

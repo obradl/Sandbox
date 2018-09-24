@@ -1,4 +1,4 @@
-﻿namespace Blog.ApplicationCore.Common.PostUtils
+﻿namespace Blog.ApplicationCore.Features.Post.PostUtils
 {
     public interface IPostRequest
     {

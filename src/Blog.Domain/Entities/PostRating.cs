@@ -18,6 +18,6 @@ namespace Blog.Domain.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string PostId { get; }
 
-        public int Rating { get; }
+        public int Rating { get; private set; }
     }
 }

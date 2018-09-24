@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Blog.ApplicationCore.Common.PostUtils;
+using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.Domain.Entities;
 using Blog.Infrastructure.Data;
 using MediatR;

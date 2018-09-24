@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.ApplicationCore.Common.PostUtils;
+using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.ApplicationCore.Features.Post.Utils.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;

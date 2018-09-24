@@ -4,6 +4,7 @@ using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
+using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using Blog.WebApi.Middleware;
@@ -41,6 +42,7 @@ namespace Blog.WebApi
 
 
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatePostExistence<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateBehavior<,>));
             services.AddMediatR(typeof(CreatePostCommandHandler).GetTypeInfo().Assembly);
 

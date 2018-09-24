@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.ApplicationCore.Common.PostUtils;
 using Blog.ApplicationCore.Features.Comment.Utils.Dto;
+using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
