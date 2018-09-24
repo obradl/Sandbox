@@ -1,20 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net.Mime;
 using System.Reflection;
+using System.Text;
 using AutoMapper;
 using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
+using Blog.WebApi.HealthChecks;
 using Blog.WebApi.Middleware;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Blog.WebApi
@@ -44,13 +50,18 @@ namespace Blog.WebApi
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateBehavior<,>));
             services.AddMediatR(typeof(CreatePostCommandHandler).GetTypeInfo().Assembly);
 
+            services.AddHealthChecks()
+                .AddCheck<MongoDbHealthCheck>()
+                .AddCheck<VgHealthCheck>();
+
             services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
                     new Info
                     {
-                        Title = "Blog API", Version = "v1",
+                        Title = "Blog API",
+                        Version = "v1",
                     });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -71,7 +82,7 @@ namespace Blog.WebApi
 
                     return new BadRequestObjectResult(problemDetails)
                     {
-                        ContentTypes = {"application/problem+json", "application/problem+xml"}
+                        ContentTypes = { "application/problem+json", "application/problem+xml" }
                     };
                 };
             });
@@ -79,6 +90,29 @@ namespace Blog.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseHealthChecks("/health", new HealthCheckOptions()
+            {
+                ResponseWriter = async (context, result) =>
+                {
+                    var healtData = new StringBuilder();
+                    var healthChecks = new List<HealthCheckDtoResult>();
+                    foreach (var r in result.Results)
+                    {
+                        var hc = new HealthCheckDtoResult
+                        {
+                            Name = r.Key,
+                            Status = r.Value.Status.ToString()
+                        };
+
+                        healthChecks.Add(hc);
+                    }
+
+                    context.Response.StatusCode = StatusCodes.Status200OK;
+                    context.Response.ContentType = new ContentType("application/json").MediaType;
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(healthChecks));
+                }
+            });
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -100,4 +134,5 @@ namespace Blog.WebApi
             app.UseMvc();
         }
     }
+
 }
