@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Blog.ApplicationCore.Features.Comment.Dto;
+using Blog.ApplicationCore.Features.Comment.Utils.Dto;
 
-namespace Blog.ApplicationCore.Features.Comment.Mapping
+namespace Blog.ApplicationCore.Features.Comment.Utils.Mapping
 {
     public class CommentMappingProfile : Profile
     {

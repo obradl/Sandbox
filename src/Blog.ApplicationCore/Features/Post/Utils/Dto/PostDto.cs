@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blog.ApplicationCore.Features.Post.Dto
+namespace Blog.ApplicationCore.Features.Post.Utils.Dto
 {
     public class PostDto
     {

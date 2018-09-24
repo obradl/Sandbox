@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Features.Post.CreatePost;
-using Blog.ApplicationCore.Features.Post.Dto;
 using Blog.ApplicationCore.Features.Post.EditPost;
 using Blog.ApplicationCore.Features.Post.GetPosts;
 using Blog.ApplicationCore.Features.Post.GetSinglePost;
 using Blog.ApplicationCore.Features.Post.PublishPost;
 using Blog.ApplicationCore.Features.Post.RatePost;
 using Blog.ApplicationCore.Features.Post.UnPublishPost;
+using Blog.ApplicationCore.Features.Post.Utils.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

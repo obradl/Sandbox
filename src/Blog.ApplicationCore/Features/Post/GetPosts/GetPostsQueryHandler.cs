@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.ApplicationCore.Features.Post.Dto;
+using Blog.ApplicationCore.Features.Post.Utils.Dto;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;

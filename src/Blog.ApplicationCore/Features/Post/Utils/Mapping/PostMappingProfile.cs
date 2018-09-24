@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Blog.ApplicationCore.Features.Post.Dto;
+using Blog.ApplicationCore.Features.Post.Utils.Dto;
 
-namespace Blog.ApplicationCore.Features.Post.Mapping
+namespace Blog.ApplicationCore.Features.Post.Utils.Mapping
 {
     public class PostMappingProfile : Profile
     {

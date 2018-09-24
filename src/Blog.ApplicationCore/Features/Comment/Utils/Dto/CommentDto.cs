@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blog.ApplicationCore.Features.Comment.Dto
+namespace Blog.ApplicationCore.Features.Comment.Utils.Dto
 {
     public class CommentDto
     {
