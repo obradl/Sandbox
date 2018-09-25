@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Mime;
 using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
+using Blog.Infrastructure.ApiClients;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using Blog.WebApi.HealthChecks;
@@ -50,9 +52,11 @@ namespace Blog.WebApi
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateBehavior<,>));
             services.AddMediatR(typeof(CreatePostCommandHandler).GetTypeInfo().Assembly);
 
+            services.AddHttpClient<GitHubService>();
+
             services.AddHealthChecks()
                 .AddCheck<MongoDbHealthCheck>()
-                .AddCheck<VgHealthCheck>();
+                .AddCheck<GitHubHealthCheck>();
 
             services.AddAutoMapper();
             services.AddSwaggerGen(c =>
