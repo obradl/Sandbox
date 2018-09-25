@@ -95,22 +95,7 @@ namespace Blog.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseHealthChecks("/health", new HealthCheckOptions()
-            {   
-                ResponseWriter = async (context, result) =>
-                {
-                    var healthCheckResults = new HealthCheckResultsDto {OverallStatus = result.Status.ToString()};
-
-                    var healthChecks = result.Results
-                        .Select(r => new HealthCheckDto { Name = r.Key, Status = r.Value.Status.ToString()}).ToList();
-
-                    healthCheckResults.HealthChecks = healthChecks;
-                    context.Response.StatusCode = StatusCodes.Status200OK;
-                    context.Response.ContentType = new ContentType("application/json").MediaType;
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(healthCheckResults));
-                }
-            });
-
+            app.UseHealthCheck("/health");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -132,5 +117,4 @@ namespace Blog.WebApi
             app.UseMvc();
         }
     }
-
 }
