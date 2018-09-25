@@ -9,8 +9,7 @@ using MongoDB.Driver;
 
 namespace Blog.ApplicationCore.Behaviors
 {
-    public class ValidatePostExistence<TRequest, TResponse> 
-        : IPipelineBehavior<IPostRequest, TResponse>  
+    public class ValidatePostExistence<TResponse> : IPipelineBehavior<IPostRequest, TResponse>  
        
     { 
         private readonly IBlogContext _blogContext;

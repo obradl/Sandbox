@@ -29,7 +29,7 @@ namespace Blog.Domain.Entities
         public bool Published { get; private set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
-        public DateTime DateCreated { get; }
+        public DateTime DateCreated { get; private set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
         public DateTime? DatePublished { get; private set; }

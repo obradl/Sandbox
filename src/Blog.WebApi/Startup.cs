@@ -1,8 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Mime;
 using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Behaviors;
@@ -15,14 +12,11 @@ using Blog.WebApi.Middleware;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Blog.WebApi
@@ -41,18 +35,17 @@ namespace Blog.WebApi
             services.AddOptions();
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
 
-            services.AddScoped<IBlogContext, BlogContext>();
             services.AddMvc(options => { options.Filters.Add<ExceptionFilter>(); })
                 .AddFluentValidation(fvc =>
                     fvc.RegisterValidatorsFromAssemblyContaining<CreatePostCommandValidator>())
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddScoped<IBlogContext, BlogContext>();
+            services.AddHttpClient<GitHubService>();
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatePostExistence<,>));
+            //services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatePostExistence<>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateBehavior<,>));
             services.AddMediatR(typeof(CreatePostCommandHandler).GetTypeInfo().Assembly);
-
-            services.AddHttpClient<GitHubService>();
 
             services.AddHealthChecks()
                 .AddCheck<MongoDbHealthCheck>()
