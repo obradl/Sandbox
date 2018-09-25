@@ -12,7 +12,7 @@ namespace Blog.WebApi
     {
         public static IApplicationBuilder UseHealthCheck(this IApplicationBuilder app, string healthCheckUrl)
         {
-            app.UseHealthChecks("/health", new HealthCheckOptions()
+            app.UseHealthChecks(healthCheckUrl, new HealthCheckOptions()
             {
                 ResponseWriter = async (context, result) =>
                 {
