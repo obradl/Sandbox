@@ -26,7 +26,7 @@ namespace Blog.WebApi.HealthChecks
             try
             {
                 var database = client.GetDatabase(_settings.Database);
-                document = await database.RunCommandAsync((Command<BsonDocument>)"{ping:1}");
+                document = await database.RunCommandAsync((Command<BsonDocument>)"{ping:1}", cancellationToken: cancellationToken);
             }
             catch (Exception e)
             {

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Mime;
 using System.Reflection;
-using System.Text;
 using AutoMapper;
 using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
@@ -20,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -92,25 +92,18 @@ namespace Blog.WebApi
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseHealthChecks("/health", new HealthCheckOptions()
-            {
+            {   
                 ResponseWriter = async (context, result) =>
                 {
-                    var healtData = new StringBuilder();
-                    var healthChecks = new List<HealthCheckDtoResult>();
-                    foreach (var r in result.Results)
-                    {
-                        var hc = new HealthCheckDtoResult
-                        {
-                            Name = r.Key,
-                            Status = r.Value.Status.ToString()
-                        };
+                    var healthCheckResults = new HealthCheckResultsDto {OverallStatus = result.Status.ToString()};
 
-                        healthChecks.Add(hc);
-                    }
+                    var healthChecks = result.Results
+                        .Select(r => new HealthCheckDto { Name = r.Key, Status = r.Value.Status.ToString()}).ToList();
 
+                    healthCheckResults.HealthChecks = healthChecks;
                     context.Response.StatusCode = StatusCodes.Status200OK;
                     context.Response.ContentType = new ContentType("application/json").MediaType;
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(healthChecks));
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(healthCheckResults));
                 }
             });
 
