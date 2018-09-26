@@ -6,6 +6,7 @@ using Blog.ApplicationCore.Features.Comment.GetCommentsForPost;
 using Blog.ApplicationCore.Features.Comment.Utils.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Blog.WebApi.Controllers
 {
@@ -27,6 +28,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="postId">Post id</param>
         /// <returns></returns>
         [HttpPost("~/api/posts/{postId}/comments")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<CommentDto>> Post([FromBody] CreateCommentDto comment, [FromRoute] string postId)
         {
             var createdComment = await _mediator.Send(new CreateCommentCommand(postId, comment));
@@ -38,6 +41,8 @@ namespace Blog.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("~/api/posts/{postId}/comments")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsForPost([FromRoute] string postId)
         {
             var comments = await _mediator.Send(new GetCommentsForPostQuery(postId));
@@ -50,6 +55,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="id">Comment id</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete([FromRoute] string id)
         {
             await _mediator.Send(new DeleteCommentCommand(id));

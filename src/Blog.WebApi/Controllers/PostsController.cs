@@ -10,9 +10,11 @@ using Blog.ApplicationCore.Features.Post.UnPublishPost;
 using Blog.ApplicationCore.Features.Post.Utils.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Blog.WebApi.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class PostsController : Controller
     {
@@ -28,6 +30,8 @@ namespace Blog.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<PostDto>>> Get([FromQuery] bool published = false)
         {
             var posts = await _mediator.Send(new GetPostsQuery(published));
@@ -40,6 +44,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpGet("{id}", Name = "GetSingle")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> GetSingle([FromRoute] string id)
         {
             var posts = await _mediator.Send(new DeletePostCommand(id));
@@ -52,6 +58,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpPut("{id}/publish")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> Publish([FromRoute] string id)
         {
             var publishedPost = await _mediator.Send(new PublishPostCommand(id));
@@ -65,6 +73,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="rating">Rating</param>
         /// <returns></returns>
         [HttpPut("{id}/rate")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Rate([FromRoute] string id, [FromBody] int rating)
         {
             await _mediator.Send(new RatePostCommand(id, rating));
@@ -77,6 +87,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpPut("{id}/unpublish")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> UnPublish([FromRoute] string id)
         {
             var publishedPost = await _mediator.Send(new UnPublishPostCommand(id));
@@ -89,6 +101,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="post"></param>
         /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> Post([FromBody] CreatePostDto post)
         {
             var createdPost = await _mediator.Send(new CreatePostCommand(post));
@@ -102,6 +116,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> Put([FromBody] EditPostDto post, [FromRoute] string id)
         {
             var updatedPost = await _mediator.Send(new EditPostCommand(id, post));
@@ -114,6 +130,8 @@ namespace Blog.WebApi.Controllers
         /// <param name="id">Post id</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete([FromRoute] string id)
         {
             await _mediator.Send(new ApplicationCore.Features.Post.DeletePost.DeletePostCommand(id));
