@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>22c473a6-b569-4547-92f2-d7e471cc1084</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/3217e5bc-ae73-4f09-a6ca-2f978b5294b4/resourcegroups/oysteintest/providers/microsoft.insights/components/oysteinBlog</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/3217e5bc-ae73-4f09-a6ca-2f978b5294b4/resourcegroups/oysteintest/providers/microsoft.insights/components/oysteinBlog</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,6 +28,7 @@
     <PackageReference Include="Hangfire.Mongo" Version="0.5.11" />
     <PackageReference Include="MediatR" Version="5.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0-preview2-35157" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0-preview2-35157" />
     <PackageReference Include="Scrutor" Version="3.0.1" />
@@ -36,6 +39,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Blog.ApplicationCore\Blog.ApplicationCore.csproj" />
     <ProjectReference Include="..\Blog.Infrastructure\Blog.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
