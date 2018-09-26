@@ -62,7 +62,7 @@ namespace Blog.WebApi
                     {
                         Title = "Blog API",
                         Version = "v1",
-                        Description = "Health check endpoint: /health"
+                        Description = "Health check endpoint: /health. Hangfire endpoint: /hangfire"
                     });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
