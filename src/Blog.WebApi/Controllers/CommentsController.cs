@@ -29,6 +29,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("~/api/posts/{postId}/comments")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<CommentDto>> Post([FromBody] CreateCommentDto comment, [FromRoute] string postId)
         {
@@ -42,6 +43,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("~/api/posts/{postId}/comments")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsForPost([FromRoute] string postId)
         {
@@ -56,6 +58,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete([FromRoute] string id)
         {

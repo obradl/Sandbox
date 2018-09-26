@@ -45,6 +45,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("{id}", Name = "GetSingle")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> GetSingle([FromRoute] string id)
         {
@@ -59,6 +60,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpPut("{id}/publish")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> Publish([FromRoute] string id)
         {
@@ -74,6 +76,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpPut("{id}/rate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Rate([FromRoute] string id, [FromBody] int rating)
         {
@@ -88,6 +91,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpPut("{id}/unpublish")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> UnPublish([FromRoute] string id)
         {
@@ -117,6 +121,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> Put([FromBody] EditPostDto post, [FromRoute] string id)
         {
@@ -131,6 +136,7 @@ namespace Blog.WebApi.Controllers
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete([FromRoute] string id)
         {
