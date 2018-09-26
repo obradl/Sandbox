@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Features.Post.CreatePost;
 using Blog.ApplicationCore.Features.Post.EditPost;
 using Blog.ApplicationCore.Features.Post.GetPosts;
 using Blog.ApplicationCore.Features.Post.GetSinglePost;
+using Blog.ApplicationCore.Features.Post.PublishFuturePost;
 using Blog.ApplicationCore.Features.Post.PublishPost;
 using Blog.ApplicationCore.Features.Post.RatePost;
 using Blog.ApplicationCore.Features.Post.UnPublishPost;
@@ -127,6 +129,22 @@ namespace Blog.WebApi.Controllers
         {
             var updatedPost = await _mediator.Send(new EditPostCommand(id, post));
             return Ok(updatedPost);
+        }
+
+        /// <summary>
+        ///     Publish a post in future
+        /// </summary>
+        /// <param name="id">Post id</param>
+        /// <param name="publishDate">Publish date</param>
+        /// <returns></returns>
+        [HttpPut("{id}/publishfuture")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<PostDto>> PutFuturePublish([FromRoute] string id, [FromBody]DateTime publishDate)
+        {
+           await _mediator.Send(new PublishFuturePostCommand(id, publishDate));
+           return Ok();
         }
 
         /// <summary>

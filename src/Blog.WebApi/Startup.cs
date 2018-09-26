@@ -4,13 +4,13 @@ using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
-using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.Infrastructure.ApiClients;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
 using Blog.WebApi.HealthChecks;
 using Blog.WebApi.Middleware;
 using FluentValidation.AspNetCore;
+using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,8 +33,9 @@ namespace Blog.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var configMongoDb = Configuration.GetSection("MongoDbSettings");
             services.AddOptions();
-            services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
+            services.Configure<MongoDbSettings>(configMongoDb);
 
             services.AddMvc(options => { options.Filters.Add<ExceptionFilter>(); })
                 .AddFluentValidation(fvc =>
@@ -52,6 +53,7 @@ namespace Blog.WebApi
                 .AddCheck<MongoDbHealthCheck>()
                 .AddCheck<GitHubHealthCheck>();
 
+            services.AddHangfire(configMongoDb["ConnectionString"], configMongoDb["Database"]);
             services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {
@@ -89,6 +91,8 @@ namespace Blog.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
             app.UseHealthCheck("/health");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
