@@ -4,6 +4,7 @@ using System.Reflection;
 using AutoMapper;
 using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
+using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.Infrastructure.ApiClients;
 using Blog.Infrastructure.Data;
 using Blog.WebApi.Filters;
@@ -43,7 +44,7 @@ namespace Blog.WebApi
             services.AddScoped<IBlogContext, BlogContext>();
             services.AddHttpClient<GitHubService>();
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-            //services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatePostExistence<>));
+            //services.AddScoped(typeof(IPipelineBehavior<IPostRequest, object>), typeof(ValidatePostExistence<>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateBehavior<,>));
             services.AddMediatR(typeof(CreatePostCommandHandler).GetTypeInfo().Assembly);
 
