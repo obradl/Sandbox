@@ -14,7 +14,6 @@ namespace Blog.WebApi
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights()
                 .UseStartup<Startup>()
                 .ConfigureLogging((hostingContext, logging) =>
                 {

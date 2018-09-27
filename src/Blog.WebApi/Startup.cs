@@ -10,7 +10,6 @@ using Blog.WebApi.Filters;
 using Blog.WebApi.HealthChecks;
 using Blog.WebApi.Middleware;
 using FluentValidation.AspNetCore;
-using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,7 +52,6 @@ namespace Blog.WebApi
                 .AddCheck<MongoDbHealthCheck>()
                 .AddCheck<GitHubHealthCheck>();
 
-            //services.AddHangfire(configMongoDb["ConnectionString"], configMongoDb["Database"]);
             services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {
@@ -91,8 +89,6 @@ namespace Blog.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //app.UseHangfireDashboard();
-            //app.UseHangfireServer();
             app.UseHealthCheck("/health");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
