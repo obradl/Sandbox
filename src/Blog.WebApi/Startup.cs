@@ -53,7 +53,7 @@ namespace Blog.WebApi
                 .AddCheck<MongoDbHealthCheck>()
                 .AddCheck<GitHubHealthCheck>();
 
-            services.AddHangfire(configMongoDb["ConnectionString"], configMongoDb["Database"]);
+            //services.AddHangfire(configMongoDb["ConnectionString"], configMongoDb["Database"]);
             services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {
@@ -91,8 +91,8 @@ namespace Blog.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
+            //app.UseHangfireDashboard();
+            //app.UseHangfireServer();
             app.UseHealthCheck("/health");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
