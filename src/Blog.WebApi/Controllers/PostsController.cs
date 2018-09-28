@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Features.Post.CreatePost;
 using Blog.ApplicationCore.Features.Post.EditPost;
@@ -50,7 +49,7 @@ namespace Blog.WebApi.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> GetSingle([FromRoute] string id)
         {
-            var posts = await _mediator.Send(new DeletePostCommand(id));
+            var posts = await _mediator.Send(new GetPostByIdQuery(id));
             return Ok(posts);
         }
 

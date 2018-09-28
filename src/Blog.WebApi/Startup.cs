@@ -43,8 +43,8 @@ namespace Blog.WebApi
 
             services.AddScoped<IBlogContext, BlogContext>();
             services.AddHttpClient<GitHubService>();
+
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-            //services.AddScoped(typeof(IPipelineBehavior<IPostRequest, object>), typeof(ValidatePostExistence<>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateBehavior<,>));
             services.AddMediatR(typeof(CreatePostCommandHandler).GetTypeInfo().Assembly);
 
