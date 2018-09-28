@@ -49,7 +49,7 @@ namespace Blog.WebApi.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<PostDto>> GetSingle([FromRoute] string id)
         {
-            var posts = await _mediator.Send(new GetPostByIdQuery(id));
+            var posts = await _mediator.Send(new GetSinglePostQuery(id));
             return Ok(posts);
         }
 

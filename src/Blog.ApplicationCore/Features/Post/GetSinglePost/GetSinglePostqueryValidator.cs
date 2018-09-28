@@ -2,7 +2,7 @@
 
 namespace Blog.ApplicationCore.Features.Post.GetSinglePost
 {
-    public class GetSinglePostQueryValidator : AbstractValidator<GetPostByIdQuery>
+    public class GetSinglePostQueryValidator : AbstractValidator<GetSinglePostQuery>
     {
         public GetSinglePostQueryValidator()
         {

@@ -2,7 +2,7 @@
 
 namespace Blog.ApplicationCore.Features.Post.DeletePost
 {
-    public class DeletePostCommandValidator : AbstractValidator<GetSinglePost.GetPostByIdQuery>
+    public class DeletePostCommandValidator : AbstractValidator<DeletePostCommand>
     {
         public DeletePostCommandValidator()
         {

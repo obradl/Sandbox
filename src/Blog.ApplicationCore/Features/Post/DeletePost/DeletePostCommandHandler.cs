@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Features.Post.PostUtils;
-using Blog.Domain.Exceptions;
 using Blog.Infrastructure.Data;
 using MediatR;
 using MongoDB.Driver;
