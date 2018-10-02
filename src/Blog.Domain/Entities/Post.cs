@@ -37,7 +37,7 @@ namespace Blog.Domain.Entities
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
         public DateTime Updated { get; private set; }
 
-        [BsonIgnore] public IEnumerable<PostRating> Ratings { private get; set; }
+        [BsonIgnore] public List<PostRating> Ratings { get; set; }
 
         public void Publish()
         {
@@ -83,6 +83,19 @@ namespace Blog.Domain.Entities
         private void SetUpdatedTime()
         {
             Updated = DateTime.Now;
+        }
+
+        public PostRating AddRating(int rating)
+        {
+            if (Ratings == null)
+            {
+                Ratings = new List<PostRating>();
+            }
+
+            var postRating = new PostRating(Id, rating);
+            Ratings.Add(postRating);
+
+            return postRating;
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Features.Post.PostUtils;
-using Blog.Domain.Entities;
 using Blog.Infrastructure.Data;
 using MediatR;
+using MongoDB.Driver;
 
 namespace Blog.ApplicationCore.Features.Post.RatePost
 {
@@ -18,8 +18,14 @@ namespace Blog.ApplicationCore.Features.Post.RatePost
 
         public async Task<Unit> Handle(RatePostCommand request, CancellationToken cancellationToken)
         {
-            var postRating = new PostRating(request.PostId, request.Rating);
-            await _blogContext.PostRatings.InsertOneAsync(postRating, cancellationToken: cancellationToken);
+            var existingPost = await _blogContext.Posts
+                .Find(d => d.Id == request.PostId)
+                .FirstOrDefaultAsync(CancellationToken.None);
+
+            var rating = existingPost.AddRating(request.Rating);
+
+            await _blogContext.PostRatings
+                .InsertOneAsync(rating, cancellationToken: cancellationToken);
 
             return Unit.Value;
         }

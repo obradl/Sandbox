@@ -24,5 +24,25 @@ namespace Blog.Domain.Tests
             Assert.False(post.Published);
             Assert.Null(post.DatePublished);
         }
+
+        [Fact]
+        public void CalculateRatingReturnsNull()
+        {
+            var post = new Post("title", "ob", "Full text", "Lead");
+            var rating = post.CalculateAverageRating();
+
+            Assert.Null(rating);
+        }
+
+        [Fact]
+        public void AddRatingThenCalculateRatingReturns1()
+        {
+            var post = new Post("title", "ob", "Full text", "Lead");
+            post.AddRating(1);
+
+            var rating = post.CalculateAverageRating();
+
+            Assert.Equal(1, rating);
+        }
     }
 }
