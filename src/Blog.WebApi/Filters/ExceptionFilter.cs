@@ -15,7 +15,7 @@ namespace Blog.WebApi.Filters
                 case EntityDoesNotExistsException exception:
                     context.Result = new NotFoundObjectResult(exception.Message);
                     break;
-                case DomainValidationException exception:
+                case EntityValidationException exception:
                     var problemDetails = new ValidationProblemDetails
                     {
                         Instance = context.HttpContext.Request.Path,

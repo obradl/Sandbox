@@ -28,7 +28,7 @@ namespace Blog.ApplicationCore.Behaviors
 
             if (failures.Any())
             {
-                throw new DomainValidationException($"Validation Errors for type {typeof(TRequest).Name}", 
+                throw new EntityValidationException($"Validation Errors for type {typeof(TRequest).Name}", 
                     failures.Select(d=>d.ErrorMessage));
             }
               

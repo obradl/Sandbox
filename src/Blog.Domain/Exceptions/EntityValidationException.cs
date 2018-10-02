@@ -2,10 +2,10 @@
 
 namespace Blog.Domain.Exceptions
 {
-    public class DomainValidationException : DomainException
+    public class EntityValidationException : DomainException
     {
         public IEnumerable<string> Errors { get; }
-        public DomainValidationException(string s, IEnumerable<string> errors)
+        public EntityValidationException(string message, IEnumerable<string> errors) :base(message)
         {
             Errors = errors;
         }
