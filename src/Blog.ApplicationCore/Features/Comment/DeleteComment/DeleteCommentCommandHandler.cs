@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Blog.Infrastructure.Data;
+using Blog.Infrastructure.Data.MongoDb;
 using MediatR;
 
 namespace Blog.ApplicationCore.Features.Comment.DeleteComment

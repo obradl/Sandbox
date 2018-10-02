@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Blog.Infrastructure.Data;
+using Blog.Infrastructure.Data.MongoDb;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;

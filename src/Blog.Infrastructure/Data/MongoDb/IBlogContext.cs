@@ -1,7 +1,7 @@
 ﻿using Blog.Domain.Entities;
 using MongoDB.Driver;
 
-namespace Blog.Infrastructure.Data
+namespace Blog.Infrastructure.Data.MongoDb
 {
     public interface IBlogContext
     {

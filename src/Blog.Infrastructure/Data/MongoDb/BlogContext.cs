@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 
-namespace Blog.Infrastructure.Data
+namespace Blog.Infrastructure.Data.MongoDb
 {
     public class BlogContext : IBlogContext
     {

@@ -5,6 +5,7 @@ using AutoMapper;
 using Blog.ApplicationCore.Features.Comment.Utils.Dto;
 using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.Infrastructure.Data;
+using Blog.Infrastructure.Data.MongoDb;
 using MediatR;
 using MongoDB.Driver;
 

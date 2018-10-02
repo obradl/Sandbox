@@ -4,6 +4,7 @@ using AutoMapper;
 using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.ApplicationCore.Features.Post.Utils.Dto;
 using Blog.Infrastructure.Data;
+using Blog.Infrastructure.Data.MongoDb;
 using MediatR;
 using MongoDB.Driver;
 

@@ -1,4 +1,4 @@
-﻿namespace Blog.Infrastructure.Data
+﻿namespace Blog.Infrastructure.Data.MongoDb
 {
     public class MongoDbSettings
     {

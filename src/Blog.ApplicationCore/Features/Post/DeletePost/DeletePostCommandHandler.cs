@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Blog.ApplicationCore.Features.Post.PostUtils;
 using Blog.Infrastructure.Data;
+using Blog.Infrastructure.Data.MongoDb;
 using MediatR;
 using MongoDB.Driver;
 

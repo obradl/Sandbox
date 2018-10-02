@@ -6,6 +6,7 @@ using Blog.ApplicationCore.Behaviors;
 using Blog.ApplicationCore.Features.Post.CreatePost;
 using Blog.Infrastructure.ApiClients;
 using Blog.Infrastructure.Data;
+using Blog.Infrastructure.Data.MongoDb;
 using Blog.WebApi.Filters;
 using Blog.WebApi.HealthChecks;
 using Blog.WebApi.Middleware;
